@@ -31,7 +31,7 @@ export const successToast = (toast: any, title: string, message: string) => {
     duration: 3000,
     isClosable: false,
     status: "success",
-    position: "bottom-right",
+    position: "top-right",
   });
 };
 

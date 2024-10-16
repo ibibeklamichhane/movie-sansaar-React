@@ -26,7 +26,7 @@ const SignupPage: FC<any> = ({}) => {
   });
 
   const onSubmit = handleSubmit((data) => {
-    successToast(toast, "Login", "Successfully");
+    successToast(toast, "signup", "Successfully");
   });
 
   return (

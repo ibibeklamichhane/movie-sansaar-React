@@ -5,3 +5,6 @@ export interface LoginInputProps {
     placeholder:string,
     register:Function
   }
+  export interface GenreIDInterface {
+    genres:Array<{id:number,name:string}>
+  }
