@@ -5,6 +5,7 @@ const SignupPage = lazy(() => import('./Page/SignupPage'));
 import HomePage from './Page/HomePage';
 import LayOut from './Layout/Layout';
 import ContactPage from './Page/ContactPage';
+import MoviePage from './Page/MoviePage';
 
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
     <Routes>
       <Route path='/' element={<LayOut/>}>
       <Route index element={<HomePage />}/>
-     
+      <Route path='/movie' element={<MoviePage />}/>
+
       <Route path='/contact' element={<ContactPage />}/>
 
      <Route path='/log-in' element={ <LoginPage />}/>
