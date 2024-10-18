@@ -1,11 +1,8 @@
 import {createSlice,PayloadAction } from '@reduxjs/toolkit';
-import getPopularMovieList from './Reducer/getPopularMovieList';
-import appendPopularMovieList from './Reducer/appendPopularMovieList';
+
 import {Movie} from '../Interface/index.ts';
-import getUpComingMovieList from './Reducer/getUpComingMovieList.ts';
-import appendUpComingMovieList from './Reducer/appendUpComingMovieList.ts';
-import getTrendingMovieList from './Reducer/getTrendingMovieList.ts';
-import appendTrendingMovieList from './Reducer/appendTrendingMovieList.ts';
+
+import {appendPopularMovieList,getUpComingMovieList,getTrendingMovieList,getPopularMovieList,getTopRatedMovieList, appendTopRatedMovieList, appendUpComingMovieList, appendTrendingMovieList,} from '../App/Reducer/movieReducer.ts';
 
 
 type InitialState = {

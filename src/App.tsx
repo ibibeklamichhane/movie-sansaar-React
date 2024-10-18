@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from './App/store';
 import {useEffect} from 'react';
 import TVSeriesPage from './Page/TVSeriesPage';
 import {appendPopularMovieList,getUpComingMovieList,getTrendingMovieList,getPopularMovieList,getTopRatedMovieList, appendTopRatedMovieList, appendUpComingMovieList, appendTrendingMovieList,} from './App/Reducer/movieReducer';
+import { getPopularSeriesList ,appendPopularSeriesList, getTopRatedSeriesList} from './App/Reducer/seriesReducer.ts';
+
 
 function App() {
   const dispatch = useAppDispatch();
@@ -17,10 +19,16 @@ function App() {
   const upComingPage = useAppSelector((state) => state.movieList.upComingMovie.page);
   const trendingPage = useAppSelector((state) => state.movieList.trendingMovie.page);
 
+  //series
+  const popularSeriesPage = useAppSelector((state) => state.seriesList.popularSeries.page);
+  const topRatedSeriesPage = useAppSelector((state) => state.seriesList.topRatedSeries.page);
+
   useEffect(() => {
     dispatch(getPopularMovieList());
     dispatch(getUpComingMovieList());
     dispatch(getTrendingMovieList());
+    dispatch(getPopularSeriesList());
+    dispatch(getTopRatedSeriesList());
 
   }, [dispatch]);
 
@@ -40,6 +48,18 @@ function App() {
       dispatch(appendTrendingMovieList(trendingPage));
     }
   }, [trendingPage]);
+
+  //
+  useEffect(() => {
+    if(popularSeriesPage != 1){
+      dispatch(appendPopularSeriesList(popularSeriesPage));
+    }
+  }, [popularSeriesPage]);
+  useEffect(() => {
+    if(topRatedSeriesPage != 1){
+      dispatch(appendTopRatedMovieList(topRatedSeriesPage));
+    }
+  }, [topRatedSeriesPage]);
   return (
     <Routes>
       <Route path='/' element={<LayOut/>}>
