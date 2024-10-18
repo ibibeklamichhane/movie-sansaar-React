@@ -10,7 +10,7 @@ interface Props{
 
 let ContactPage:FC<Props> = ({}) => {
 
-    const { register, formState: { errors }, handleSubmit } = useForm<any>();
+    const { register, handleSubmit } = useForm<any>();
 
     const onSubmit = handleSubmit(data => {
         console.log({ ...data})
