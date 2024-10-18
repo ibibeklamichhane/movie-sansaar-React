@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FC, useState } from 'react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { GenreID } from '../Const/index.ts';
-
+import { successToast, errorToast } from '../Component/CustomComponents.tsx';
 interface Props {
 
 }
@@ -18,7 +18,8 @@ let NavBar: FC<Props> = ({ }) => {
                 <Heading fontFamily={"Playfair"} color={"brand.500"} fontSize={"xl"} fontWeight={"bold"}>Movie Sansaar</Heading>
                 <HStack gap={"30px"}>
                     <Link to="/"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>Home</Text></Link>
-                    <Link to="/movie"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>Movies</Text></Link>                    <Link to="/"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>TV Series</Text></Link>
+                    <Link to="/movie"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>Movies</Text></Link>    
+                    <Link to="/series"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>TV Series</Text></Link>
                     <HStack as={"button"} onClick={() => {
                         setMenu(!menu);
                     }}>
