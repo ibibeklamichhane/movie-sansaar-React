@@ -86,4 +86,4 @@ const MovieListSlice = createSlice({
 
 
 export default MovieListSlice.reducer;
-export const {setPopularPage,setUpComingPage} = MovieListSlice.actions; 
+export const {setPopularPage,setUpComingPage,setTrendingPage} = MovieListSlice.actions; 
