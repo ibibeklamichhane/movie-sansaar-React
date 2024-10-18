@@ -1,4 +1,4 @@
-import { lazy,Suspense } from 'react';
+/*import { lazy,Suspense } from 'react';
 import LoginPage from './Page/LoginPage';
 import { Routes,Route } from 'react-router-dom';
 const SignupPage = lazy(() => import('./Page/SignupPage'));
@@ -91,4 +91,47 @@ function App() {
     </Routes>
   )
 }
-export default App
+export default App 
+*/
+import { lazy, Suspense, useEffect } from 'react';
+import LoginPage from './Page/LoginPage';
+import { Routes, Route } from 'react-router-dom';
+import { useQuery } from 'react-query'; // React Query import
+const SignupPage = lazy(() => import('./Page/SignupPage'));
+import HomePage from './Page/HomePage';
+import LayOut from './Layout/Layout';
+import ContactPage from './Page/ContactPage';
+import MoviePage from './Page/MoviePage';
+import TVSeriesPage from './Page/TVSeriesPage';
+import { usePopularMovies } from './apis/MovieApi'; // You will create these API calls
+//import { fetchPopularSeries, fetchTrendingSeries, fetchTopRatedSeries, fetchUpcomingSeries } from './services/seriesService'; // Series API calls
+
+function App() {
+  // Fetch movies using React Query
+  const { data: popularMovies } = useQuery('popularMovies', usePopularMovies);
+
+
+  // Fetch series using React Query
+
+  return (
+    <Routes>
+      <Route path="/" element={<LayOut />}>
+        <Route index element={<HomePage />} />
+        <Route path="/movie" element={<MoviePage />} /> {/* Pass fetched movies */}
+        <Route path="/series" element={<TVSeriesPage  />} /> {/* Pass fetched series */}
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/log-in" element={<LoginPage />} />
+        <Route
+          path="/sign-up"
+          element={
+            <Suspense fallback="Loading...">
+              <SignupPage />
+            </Suspense>
+          }
+        />
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;

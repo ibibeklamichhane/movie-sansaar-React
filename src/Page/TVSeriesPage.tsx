@@ -1,4 +1,4 @@
-import { FC } from 'react';
+/*import { FC } from 'react';
 import Header from '../Component/Header';
 import { Box } from '@chakra-ui/react';
 //import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -25,3 +25,54 @@ let TVSeriesPage: FC<Props> = ({ }) => {
     )
 }
 export default TVSeriesPage;
+*/
+
+import { FC, useState } from 'react';
+import Header from '../Component/Header';
+import { Box } from '@chakra-ui/react';
+import CardList from '../Component/CardList';
+import { useQuery } from 'react-query'; // Import React Query hook
+import { usePopularSeries,useTrendingSeries,useUpComingSeries,useTopRatedSeries } from '../apis/SeriesApi'; // API service calls
+
+interface Props {}
+
+const MoviePage: FC<Props> = () => {
+  // Local state for pages (for pagination purposes)
+ 
+  const { data: popularseries } = usePopularSeries();
+  const { data: trendingseries } = useTrendingSeries();
+  const { data: upComingseries } = useUpComingSeries();
+  const { data: topRatedseries } = useTopRatedSeries();
+
+  /*
+  // Fetch trending movies
+  const { data: trendingMovie, isLoading: trendingLoading } = useQuery(
+    ['trendingMovies', trendingPage],
+    () => fetchTrendingMovies(trendingPage), // Fetch based on the current page
+    { keepPreviousData: true } // Retain the previous data during pagination
+  );
+
+  // Fetch upcoming movies
+  const { data: upComingMovie, isLoading: upcomingLoading } = useQuery(
+    ['upcomingMovies', upcomingPage],
+    () => fetchUpcomingMovies(upcomingPage),
+    { keepPreviousData: true }
+  ); 
+  */
+
+  // Fetch popular movies
+
+
+  return (
+    <>
+    <CardList title='Popular Movies' seriesData={popularseries} />
+     <CardList title='Trending Movies' seriesData={trendingseries} />
+    <CardList title='Up Coming Movies' seriesData={upComingseries} />
+    <CardList title='Top Rated Movies' seriesData={topRatedseries} />
+    </>
+
+
+  );
+};
+
+export default MoviePage;
