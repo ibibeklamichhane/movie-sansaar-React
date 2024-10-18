@@ -9,7 +9,7 @@ import MoviePage from './Page/MoviePage';
 import { useAppDispatch, useAppSelector } from './App/store';
 import {useEffect} from 'react';
 import TVSeriesPage from './Page/TVSeriesPage';
-import {appendPopularMovieList,getUpComingMovieList,getTrendingMovieList,getPopularMovieList,getTopRatedMovieList, appendTopRatedMovieList, appendUpComingMovieList, appendTrendingMovieList,} from './App/Reducer/movieReducer.ts';
+import {appendPopularMovieList,getUpComingMovieList,getTrendingMovieList,getPopularMovieList,getTopRatedMovieList, appendTopRatedMovieList, appendUpComingMovieList, appendTrendingMovieList,} from './App/Reducer/movieReducer';
 
 function App() {
   const dispatch = useAppDispatch();
