@@ -68,9 +68,9 @@ export const LoginInput: FC<LoginInputProps> = ({
     </>
   );
 };
-export const Card: FC<any> = ({ title,key,image }) => {
+export const Card: FC<any> = ({ title,key,image,date,genre,id }) => {
     return (
-      <VStack key = {key} to={"/"} as={Link} width={"150px"} alignItems={"flex-start"} bgColor={"dark.900"} borderRadius={"5px"} overflow={"hidden"} _hover={{
+      <VStack key = {key} to={`${id}`} as={Link} width={"150px"} alignItems={"flex-start"} bgColor={"dark.900"} borderRadius={"5px"} overflow={"hidden"} _hover={{
         ".gradient-box":{
           opacity:1
         }
@@ -80,7 +80,7 @@ export const Card: FC<any> = ({ title,key,image }) => {
         </VStack>
         <ImageLoader src={`https://image.tmdb.org/t/p/original${image}`} alt="Loading" w="150px" height={"200px"} borderTopRadius={"5px"} />
         <Heading lineHeight={"90%"} fontFamily={"Nunito"} fontWeight={"semibold"} color={"text.200"} fontSize={"xxs"}>{title}</Heading>
-        <Text lineHeight={"90%"} fontSize={"xxxs"} fontFamily={"Nunito"} fontWeight={"regular"} color={"text.300"}>2023-03-22</Text>
+        <Text lineHeight={"90%"} fontSize={"xxxs"} fontFamily={"Nunito"} fontWeight={"regular"} color={"text.300"}>{date}</Text>
         <HStack flexWrap={"wrap"} alignItems={"start"} gap={"0px"} justifyContent={"start"}>
           <Text lineHeight={"90%"} fontSize={"xxxs"} fontFamily={"Nunito"} fontWeight={"regular"} color={"brand.400"}>Action</Text>
           <Text lineHeight={"90%"} fontSize={"xxxs"} fontFamily={"Nunito"} fontWeight={"regular"} color={"brand.400"}>Comedy</Text>

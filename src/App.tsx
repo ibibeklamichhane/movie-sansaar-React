@@ -105,6 +105,7 @@ import MoviePage from './Page/MoviePage';
 import TVSeriesPage from './Page/TVSeriesPage';
 import { usePopularMovies } from './apis/MovieApi'; // You will create these API calls
 //import { fetchPopularSeries, fetchTrendingSeries, fetchTopRatedSeries, fetchUpcomingSeries } from './services/seriesService'; // Series API calls
+import SingleMoviePage from './Page/SingleMoviePage.tsx';
 
 function App() {
   // Fetch movies using React Query
@@ -120,6 +121,7 @@ function App() {
         <Route path="/movie" element={<MoviePage />} /> {/* Pass fetched movies */}
         <Route path="/series" element={<TVSeriesPage  />} /> {/* Pass fetched series */}
         <Route path="/contact" element={<ContactPage />} />
+        <Route path='/movie/:id' element={<SingleMoviePage />}/>
         <Route path="/log-in" element={<LoginPage />} />
         <Route
           path="/sign-up"
