@@ -93,23 +93,20 @@ function App() {
 }
 export default App 
 */
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import LoginPage from './Page/LoginPage';
 import { Routes, Route } from 'react-router-dom';
-import { useQuery } from 'react-query'; // React Query import
 const SignupPage = lazy(() => import('./Page/SignupPage'));
-import HomePage from './Page/HomePage';
+//import HomePage from './Page/HomePage';
 import LayOut from './Layout/Layout';
 import ContactPage from './Page/ContactPage';
 import MoviePage from './Page/MoviePage';
 import TVSeriesPage from './Page/TVSeriesPage';
-import { usePopularMovies } from './apis/MovieApi'; // You will create these API calls
 //import { fetchPopularSeries, fetchTrendingSeries, fetchTopRatedSeries, fetchUpcomingSeries } from './services/seriesService'; // Series API calls
 import SingleMoviePage from './Page/SingleMoviePage.tsx';
 
 function App() {
   // Fetch movies using React Query
-  const { data: popularMovies } = useQuery('popularMovies', usePopularMovies);
 
 
   // Fetch series using React Query
@@ -117,7 +114,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LayOut />}>
-        <Route index element={<HomePage />} />
+        <Route index element={<MoviePage />} />
         <Route path="/movie" element={<MoviePage />} /> {/* Pass fetched movies */}
         <Route path="/series" element={<TVSeriesPage  />} /> {/* Pass fetched series */}
         <Route path="/contact" element={<ContactPage />} />

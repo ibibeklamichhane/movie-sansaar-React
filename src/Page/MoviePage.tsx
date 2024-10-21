@@ -33,11 +33,8 @@ let MoviePage:FC<Props> = ({}) => {
 }
 export default MoviePage;*/
 
-import { FC, useState } from 'react';
-import Header from '../Component/Header';
-import { Box } from '@chakra-ui/react';
+import { FC  } from 'react';
 import CardList from '../Component/CardList';
-import { useQuery } from 'react-query'; // Import React Query hook
 import { usePopularMovies,useTrendingMovies,useUpComingMovies,useTopRatedMovies } from '../apis/MovieApi'; // API service calls
 
 interface Props {}
