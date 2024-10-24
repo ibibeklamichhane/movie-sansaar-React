@@ -14,7 +14,9 @@ export default function LoginPage() {
   const { register, formState: { errors },handleSubmit } = useForm<loginDataInterface>({
     resolver:yupResolver(loginSchema)
   });
-  const onSubmit = handleSubmit(data => {
+ // const onSubmit = handleSubmit(data => {
+  const onSubmit = handleSubmit(() => {
+
     successToast(toast,"Login","Successfully");
   });
 

@@ -1,6 +1,6 @@
 import { Heading, VStack ,Text, Textarea,Button,Image} from '@chakra-ui/react';
 import { useForm } from "react-hook-form";
-import { LoginInput, successToast, errorToast } from '../Component/CustomComponents';
+import { LoginInput } from '../Component/CustomComponents';
 import Groot from '../assets/Image/Groot.png';
 import {FC} from 'react';
 

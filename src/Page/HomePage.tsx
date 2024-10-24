@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import NavBar from '../Component/Navbar';
-import { Box } from '@chakra-ui/react';
+//import NavBar from '../Component/Navbar';
+//import { Box } from '@chakra-ui/react';
 //import BgImg from '../Assets/Image/BackgroundImage.png';
 import { HStack, Button, Text, VStack, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';

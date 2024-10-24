@@ -27,11 +27,11 @@ let TVSeriesPage: FC<Props> = ({ }) => {
 export default TVSeriesPage;
 */
 
-import { FC, useState } from 'react';
-import Header from '../Component/Header';
-import { Box } from '@chakra-ui/react';
+import { FC, } from 'react';
+//import Header from '../Component/Header';
+//import { Box } from '@chakra-ui/react';
 import CardList from '../Component/CardList';
-import { useQuery } from 'react-query'; // Import React Query hook
+//import { useQuery } from 'react-query'; // Import React Query hook
 import { usePopularSeries,useTrendingSeries,useUpComingSeries,useTopRatedSeries } from '../apis/SeriesApi'; // API service calls
 
 interface Props {}

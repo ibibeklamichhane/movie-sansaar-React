@@ -5,8 +5,8 @@ import { Card } from '../Component/CustomComponents';
 import { Movie,Series } from '../Interface/index.ts';
 //import {useAppDispatch } from '../App/store';
 //import { setPopularPage } from '../App/movieListSlice.ts';
-import React from 'react';
-import { usePopularMovies } from '../apis/MovieApi.ts';
+//import React from 'react';
+//import { usePopularMovies } from '../apis/MovieApi.ts';
 
 interface Props {
     icon?: typeof LocalFireDepartmentIcon,
@@ -19,7 +19,9 @@ interface Props {
 }
 
 
-let CardList: FC<Props> = ({ icon, title,movieData,page,appendData,seriesData ,isLoading}) => {
+//let CardList: FC<Props> = ({ icon, title,movieData,page,appendData,seriesData ,isLoading}) => {
+    let CardList: FC<Props> = ({ icon, title,movieData,seriesData ,isLoading}) => {
+
 
     if (isLoading) return <div>Loading...</div>;
 

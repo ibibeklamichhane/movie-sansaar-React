@@ -25,7 +25,7 @@ const SignupPage: FC<any> = ({}) => {
     resolver: yupResolver(signupSchema),
   });
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(() => {
     successToast(toast, "signup", "Successfully");
   });
 

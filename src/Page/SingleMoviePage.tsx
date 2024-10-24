@@ -1,7 +1,6 @@
 import {
   Box,
   Text,
-  Icon,
   VStack,
   HStack,
   Image,
@@ -26,6 +25,11 @@ let SingleMoviePage: FC<Props> = ({}) => {
   const [videoUrl, setVideoUrl] = useState<string>("");
   const [streamingUrl, setStreamingUrl] = useState<string>("");
 
+  const pageg =setPage
+  console.log(pageg);
+  const stream =streamingUrl
+  console.log(stream);
+  
   useEffect(() => {
     const getMovieDetails = async () => {
       try {
