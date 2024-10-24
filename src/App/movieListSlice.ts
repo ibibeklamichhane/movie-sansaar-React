@@ -2,7 +2,7 @@ import {createSlice,PayloadAction } from '@reduxjs/toolkit';
 
 import {Movie} from '../Interface/index.ts';
 
-import {appendPopularMovieList,getUpComingMovieList,getTrendingMovieList,getPopularMovieList,getTopRatedMovieList, appendTopRatedMovieList, appendUpComingMovieList, appendTrendingMovieList,} from '../App/Reducer/movieReducer.ts';
+import {appendPopularMovieList,getUpComingMovieList,getTrendingMovieList,getPopularMovieList, appendUpComingMovieList, appendTrendingMovieList,} from '../App/Reducer/movieReducer.ts';
 
 
 type InitialState = {
