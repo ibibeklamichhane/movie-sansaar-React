@@ -43,7 +43,7 @@ interface Props {
                 {
                     movieData.slice(0,limit).map((curr: Movie, index: number) => {
                         return (
-                            <Card title={curr.title} key={index} image={curr.poster_path}  id={curr?.id}/>
+                            <Card isMovie={true} title={curr.title} key={index} image={curr.poster_path}  id={curr?.id}/>
                         )
                     })
                 }
@@ -71,7 +71,7 @@ else if(seriesData != undefined){
                 {
                     seriesData?.slice(0, limit).map((curr: Series, index: number) => {
                         return (
-                            <Card title={curr.name} key={index} image={curr.poster_path} />
+                            <Card isMovie={false} title={curr.name} key={index} image={curr.poster_path} id={curr?.id} />
                         )
                     })
                 }
@@ -88,7 +88,7 @@ else if(seriesData != undefined){
     )
 }
 else{
-    return <></>
+    return <>No movies/Series Found</>
 }
 }
 

@@ -104,6 +104,8 @@ import MoviePage from './Page/MoviePage';
 import TVSeriesPage from './Page/TVSeriesPage';
 //import { fetchPopularSeries, fetchTrendingSeries, fetchTopRatedSeries, fetchUpcomingSeries } from './services/seriesService'; // Series API calls
 import SingleMoviePage from './Page/SingleMoviePage.tsx';
+import SingleTVPage from './Page/SingleTVPage.tsx';
+
 
 function App() {
   // Fetch movies using React Query
@@ -119,6 +121,7 @@ function App() {
         <Route path="/series" element={<TVSeriesPage  />} /> {/* Pass fetched series */}
         <Route path="/contact" element={<ContactPage />} />
         <Route path='/movie/:id' element={<SingleMoviePage />}/>
+        <Route path='/series/:id' element={<SingleTVPage />}/>
         <Route path="/log-in" element={<LoginPage />} />
         <Route
           path="/sign-up"

@@ -65,10 +65,10 @@ const MoviePage: FC<Props> = () => {
 
   return (
     <>
-    <CardList title='Popular Movies' seriesData={popularseries} />
-     <CardList title='Trending Movies' seriesData={trendingseries} />
-    <CardList title='Up Coming Movies' seriesData={upComingseries} />
-    <CardList title='Top Rated Movies' seriesData={topRatedseries} />
+    <CardList title='Popular Series' seriesData={popularseries} />
+     <CardList title='Trending Series' seriesData={trendingseries} />
+    <CardList title='Up Coming Series' seriesData={upComingseries} />
+    <CardList title='Top Rated Series' seriesData={topRatedseries} />
     </>
 
 
