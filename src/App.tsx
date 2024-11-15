@@ -114,6 +114,8 @@ function App() {
   // Fetch series using React Query
 
   return (
+    <>
+    <div className="bg-dark">
     <Routes>
       <Route path="/" element={<LayOut />}>
         <Route index element={<MoviePage />} />
@@ -133,6 +135,8 @@ function App() {
         />
       </Route>
     </Routes>
+    </div>
+    </>
   );
 }
 
