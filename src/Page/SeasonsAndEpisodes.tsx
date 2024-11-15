@@ -27,7 +27,7 @@ const SeasonsAndEpisodes: React.FC<SeasonsAndEpisodesProps> = ({ seasons, tvId }
 
     useEffect(() => {
         const fetchEpisodes = async () => {
-            const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+         //   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
             try {
                 const response = await axios.get(`https://api.themoviedb.org/3/tv/${tvId}/season/${selectedSeason}?api_key=${import.meta.env.VITE_REACT_API_KEY}`);
                 const fetchedEpisodes: Episode[] = response.data.episodes;

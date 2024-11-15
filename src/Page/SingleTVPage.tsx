@@ -1,12 +1,9 @@
 
-import { Box, Text, Icon, VStack, HStack, Image, Heading, Button } from '@chakra-ui/react';
+//import { Box, Text, Icon, VStack, HStack, Image, Heading, Button } from '@chakra-ui/react';
+import {  Text, VStack, HStack, Image, Heading } from '@chakra-ui/react';
 import { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { TVCast,Series, Season, TVShow } from '../Interface';
-import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
-import CallMadeIcon from '@mui/icons-material/CallMade';
 import CardList from '../Component/CardList';
 import axios from 'axios';
 import SeasonsAndEpisodes from './SeasonsAndEpisodes';
@@ -23,7 +20,7 @@ let SingleTVPage: FC<Props> = ({ }) => {
     const [movieCast, setMovieCast] = useState<TVCast>();
     const [page, setPage] = useState<number>(1);
     const [similarSeries, setSimilarSeries] = useState<Array<Series>>([]);
-    const [videoUrl, setVideoUrl] = useState<string>("");
+ //   const [videoUrl, setVideoUrl] = useState<string>("");
     const [seasons, setSeasons] = useState<Season[]>([]);
 
 

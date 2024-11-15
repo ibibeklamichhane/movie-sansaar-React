@@ -495,7 +495,7 @@ let SingleMoviePage: FC<Props> = ({}) => {
         </Box>
       )}
 
-      <Box w={"70vw"} h={"400px"} mx="auto">
+      <Box w={"70vw"} h={"400px"} mx="auto" mt="64px">
       <Button
             fontFamily={"Nunito"}
             color={"black"}
@@ -522,6 +522,7 @@ let SingleMoviePage: FC<Props> = ({}) => {
         title="Similar Movies"
         movieData={similarMovies}
       />
+   
     </VStack>
   );
 };
