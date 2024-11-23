@@ -68,6 +68,7 @@ let SingleTVPage: FC<Props> = ({ }) => {
 
 
     return (
+        <>
         <VStack alignItems={"flex-start"} m={"0px 5vw"}>
             
             <HStack gap={"40px"} pb={"40px"} alignItems={"flex-start"}>
@@ -173,16 +174,23 @@ let SingleTVPage: FC<Props> = ({ }) => {
                                     </Text>
                                 </td>
                             </tr>
+
                         </tbody>
                     </table>
                 </VStack>
             </HStack>
-            {seasons.length > 0 && <SeasonsAndEpisodes seasons={seasons} tvId={id || ''} />}
+=            {seasons.length > 0 && 
+            
+            <SeasonsAndEpisodes seasons={seasons} tvId={id || ''} />}
+            
+
 
             <CardList 
              title='Similar Series' seriesData={similarSeries} page={page} appendData={(page) => setPage(page + 1)} />
                
-        </VStack>
+               </VStack>
+
+        </>
     )
 }
 export default SingleTVPage

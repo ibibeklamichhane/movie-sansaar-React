@@ -503,7 +503,7 @@ let SingleMoviePage: FC<Props> = ({}) => {
             fontWeight={"semibold"}
             fontSize={"md"}
           >
-            Watch Movie
+          Watch Movie
           </Button>
       <iframe
           style={{
