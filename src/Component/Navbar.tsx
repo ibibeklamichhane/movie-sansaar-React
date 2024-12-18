@@ -1,8 +1,8 @@
-import { Button, HStack, Heading, Text, VStack, Collapse } from '@chakra-ui/react';
+import { Button, HStack, Heading, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { FC, useState } from 'react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import { GenreID } from '../Const/index.ts';
+import { FC } from 'react';
+//import { ChevronDownIcon } from '@chakra-ui/icons';
+//import { GenreID } from '../Const/index.ts';
 //import { successToast, errorToast } from '../Component/CustomComponents.tsx';
 interface Props {
 
@@ -10,7 +10,7 @@ interface Props {
 
 let NavBar: FC<Props> = ({ }) => {
 
-    const [menu, setMenu] = useState<boolean>(false);
+    //const [menu, setMenu] = useState<boolean>(false);
 
     return (
         <VStack p={"20px 5%"} alignItems={"flex-end"}>
@@ -20,12 +20,12 @@ let NavBar: FC<Props> = ({ }) => {
                     <Link to="/"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Home</Text></Link>
                     <Link to="/movie"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Movies</Text></Link>    
                     <Link to="/series"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>TV Series</Text></Link>
-                    <HStack as={"button"} onClick={() => {
+                     {/* <HStack as={"button"} onClick={() => {
                         setMenu(!menu);
                     }}>
-                        <Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Genre</Text>
+                     <Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Genre</Text> 
                         <ChevronDownIcon color={"text.100"} transitionDuration="300ms" fontSize={"rg"} transform={!menu ? "rotate(0deg)" : "rotate(180deg)"} />
-                    </HStack>
+                    </HStack> */}
                     <Link to="/contact"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Contact Us</Text></Link>
                     <Link to={"/log-in"}>
                         <Button fontFamily={"Nunito"} fontSize={"xs"} p="0px 15px" height={"35px"} border={"1px"} color={"brand.500"} bgColor={"transparent"} _hover={{ bgColor: "dark.900" }}>
@@ -39,6 +39,7 @@ let NavBar: FC<Props> = ({ }) => {
                     </Link>
                 </HStack>
             </HStack>
+            {/*}
             <Collapse in={menu} animateOpacity>
                 <HStack ml={"45%"} w="55%" flexWrap={"wrap"} gap={"1px"} justify={"end"}>
                     {
@@ -51,7 +52,7 @@ let NavBar: FC<Props> = ({ }) => {
                         })
                     }
                 </HStack>
-            </Collapse>
+            </Collapse> */}
         </VStack>
     )
 }

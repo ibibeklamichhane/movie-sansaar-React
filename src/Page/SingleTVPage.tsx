@@ -1,6 +1,6 @@
 
 //import { Box, Text, Icon, VStack, HStack, Image, Heading, Button } from '@chakra-ui/react';
-import {  Text, VStack, HStack, Image, Heading } from '@chakra-ui/react';
+import {  Text, VStack, HStack, Image, Heading,Box } from '@chakra-ui/react';
 import { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { TVCast,Series, Season, TVShow } from '../Interface';
@@ -179,14 +179,16 @@ let SingleTVPage: FC<Props> = ({ }) => {
                     </table>
                 </VStack>
             </HStack>
-=            {seasons.length > 0 && 
+           {seasons.length > 0 && 
             
             <SeasonsAndEpisodes seasons={seasons} tvId={id || ''} />}
             
 
-
-            <CardList 
-             title='Similar Series' seriesData={similarSeries} page={page} appendData={(page) => setPage(page + 1)} />
+        <Box mb="24px" mt="52px">
+        <CardList 
+                title='Similar Series' seriesData={similarSeries} page={page} appendData={(page) => setPage(page + 1)} />
+        </Box>
+           
                
                </VStack>
 

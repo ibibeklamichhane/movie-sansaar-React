@@ -1,5 +1,5 @@
 import { FC,useState } from 'react';
-import { Box, HStack, Heading, Icon,Text } from '@chakra-ui/react';
+import { Box, HStack, Heading,Button } from '@chakra-ui/react';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { Card } from '../Component/CustomComponents';
 import { Movie,Series } from '../Interface/index.ts';
@@ -20,13 +20,15 @@ interface Props {
 
 
 //let CardList: FC<Props> = ({ icon, title,movieData,page,appendData,seriesData ,isLoading}) => {
-    let CardList: FC<Props> = ({ icon, title,movieData,seriesData ,isLoading}) => {
+    let CardList: FC<Props> = ({  title,movieData,seriesData ,isLoading}) => {
 
 
     if (isLoading) return <div>Loading...</div>;
 
    
-    const [limit,setLimit] = useState<number>(6)
+    const [limit,setLimit] = useState<number>(11)
+    const [Serieslimit,setSeriesLimit] = useState<number>(12)
+
 
     if (movieData != undefined) {
 
@@ -34,7 +36,6 @@ interface Props {
         <div >
         <Box w={'100%'} p={"25px 0%"}>
             <HStack>
-                <Icon as={icon} color={"brand.500"} fontSize={"xxl"} />
                 <Heading color={"text.100"} fontFamily={"Nunito"} fontWeight={"semibold"} fontSize={"md"}>
                     {title}
                 </Heading>
@@ -49,13 +50,13 @@ interface Props {
                     })
                 }
             </HStack>
-            <Text  
+            <Button  
             
             onClick={()=>{
-                setLimit(limit+7);
+                setLimit(limit+6);
                 
             }}
-            position={"absolute"} cursor={"pointer"} fontSize={"xs"} right={"7%"} color={"brand.400"} fontFamily={"Nunito"}>See More</Text>
+            position={"absolute"} cursor={"pointer"} fontSize={"xs"} right={"7%"} color={"brand.400"} fontFamily={"Nunito"}>See More</Button>
         </Box>
         </div>
     )
@@ -64,28 +65,27 @@ else if(seriesData != undefined){
     return (
         <Box w={'100%'} p={"25px 0%"}>
             <HStack>
-                <Icon as={icon} color={"brand.500"} fontSize={"xxl"} />
                 <Heading color={"brand.800"} fontFamily={"Nunito"} fontWeight={"semibold"} fontSize={"md"}>
                     {title}
                 </Heading>
             </HStack>
             <HStack p={"30px 0px"} gap={"15px"} flexWrap={"wrap"} alignItems={"center"} justifyContent={"start"}>
                 {
-                    seriesData?.slice(0, 7).map((curr: Series, index: number) => {
+                    seriesData?.slice(0,Serieslimit).map((curr: Series, index: number) => {
                         return (
                             <Card isMovie={false} title={curr.name} key={index} image={curr.poster_path} id={curr?.id} />
                         )
                     })
                 }
             </HStack>
-            <Text
+            <Button
                 onClick={() => {
-                    setLimit(7 + 7);
-                    if (7 > seriesData?.length) {
+                    setSeriesLimit(Serieslimit + 6);
+                    if (6 > seriesData?.length) {
                         
                     }
                 }}
-                position={"absolute"} cursor={"pointer"} fontSize={"xs"} right={"7%"} color={"brand.400"} fontFamily={"Nunito"}>See More</Text>
+                position={"absolute"} cursor={"pointer"} fontSize={"xs"} right={"7%"} color={"brand.400"} fontFamily={"Nunito"}>See More</Button>
         </Box>
     )
 }

@@ -38,6 +38,7 @@ import {  Box,VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import CardList from '../Component/CardList';
 import SearchBar from '../Component/SearchBar';
+//import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { usePopularMovies,useTrendingMovies,useUpComingMovies,useTopRatedMovies,useSearchMovies } from '../apis/MovieApi'; // API service calls
 
 interface Props {}
@@ -82,15 +83,15 @@ const MoviePage: FC<Props> = () => {
       <Box color="red.300"  maxW="6xl" px={2}>
       {/* Content Block */}
       {isFetching ? (
-        <Box color="red.500">Loading...</Box>
+        <Box >Loading...</Box>
       ) : (
         <CardList title="Search Results" movieData={searchResults} />
       )}
     </Box>
       ) : (
-        <VStack alignItems={"flex-start"} m={"0px 5vw"}>
+        <VStack  m={"0px 8vw"}>
 
-        <Box mx="auto" maxW="7xl" >
+        <Box  maxW="10xl" >
           <CardList title="Popular Movies" movieData={popularMovies} />
           <CardList title="Trending Movies" movieData={trendingMovies} />
           <CardList title="Up Coming Movies" movieData={upComingMovies} />
@@ -103,9 +104,3 @@ const MoviePage: FC<Props> = () => {
 };
 
 export default MoviePage;
-//R01281438
-
-//294856
-
-//pin 000123
-//tpin; 123000

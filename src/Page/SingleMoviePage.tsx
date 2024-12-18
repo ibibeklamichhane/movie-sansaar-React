@@ -518,10 +518,13 @@ let SingleMoviePage: FC<Props> = ({}) => {
       
       </Box>
 
-      <CardList
-        title="Similar Movies"
-        movieData={similarMovies}
-      />
+    <Box marginTop={"56px"} >
+    <CardList
+            title="Similar Movies"
+            movieData={similarMovies}
+          />
+    </Box>
+
    
     </VStack>
   );

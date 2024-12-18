@@ -84,7 +84,7 @@ const MoviePage: FC<Props> = () => {
 </div>
         </>
       ) : (
-        <VStack alignItems={"flex-start"} m={"0px 5vw"}>
+        <VStack alignItems={"flex-start"} m={"0px 8vw"}>
     <CardList title='Popular Series' seriesData={popularseries} />
      <CardList title='Trending Series' seriesData={trendingseries} />
     <CardList title='Up Coming Series' seriesData={upComingseries} />

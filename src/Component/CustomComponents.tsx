@@ -71,12 +71,12 @@ export const LoginInput: FC<LoginInputProps> = ({
 //export const Card: FC<any> = ({ title,key,image,date,genre,id }) => {
   export const Card: FC<any> = ({ title,key,image,date,id,isMovie }) => {
     return (
-      <VStack key = {key} to={isMovie ? `/movie/${id}` : `/series/${id}`} as={Link} width={"150px"} alignItems={"flex-start"} bgColor={"dark.900"} borderRadius={"5px"} overflow={"hidden"} _hover={{
+      <VStack key = {key} to={isMovie ? `/movie/${id}` : `/series/${id}`} as={Link} width={"170px"} alignItems={"flex-start"} bgColor={"dark.900"} borderRadius={"5px"} overflow={"hidden"} _hover={{
         ".gradient-box":{
           opacity:1
         }
       }}>
-        <VStack className='gradient-box' opacity={0} transitionDuration="300ms"  w={"150px"}  marginTop={"8px"} position={"absolute"} height={"200px"} borderTopRadius={"5px"} bgColor={'rgb(31, 29, 31,0.6)'} alignItems={"center"} justifyContent={"center"}>
+        <VStack className='gradient-box' opacity={0} transitionDuration="300ms"  w={"200px"}  marginTop={"8px"} position={"absolute"} height={"200px"} borderTopRadius={"5px"} bgColor={'rgb(31, 29, 31,0.6)'} alignItems={"center"} justifyContent={"center"}>
      {/*}    <Icon as={PlayArrowRoundedIcon} fontSize={"xxxl"} color={"text.300"}/> 8*/}
         </VStack>
         <ImageLoader src={`https://image.tmdb.org/t/p/original${image}`} alt="Loading" w="150px" height={"200px"} borderTopRadius={"5px"} />

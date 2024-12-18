@@ -17,7 +17,7 @@ const SearchBar: FC<Props> = ({ onSearch }) => {
 
     <Box mx="auto" maxW="4xl" px={1}>
       <Input color="brand.500"
-        placeholder="Search for movies/Series..."
+        placeholder="Search for movies,series......."
         value={input}
         onChange={handleInputChange}
         size="md"

@@ -24,7 +24,7 @@ let ContactPage:FC<Props> = ({}) => {
                 <LoginInput register={register} type='text' name='name' label='Name' placeholder='Full Name' />
                 <LoginInput register={register} type='text' name='email' label='Email' placeholder='Email Address' />
                 <Text fontFamily={"Nunito"} fontSize={"xxs"} color={"text.500"}>Message</Text>
-                <Textarea fontFamily={"Nunito"} fontWeight={"regular"}  _placeholder={{ color: "text.500" }} placeholder={"Hello I am under the water"} bgColor={"dark.700"} border={"none"} outline={"none"} _focusVisible={{ outlineColor: "white", outlineWidth: "1px" }} fontSize={"xs"} color={"text.500"} height={"150px"} resize={"none"}/>
+                <Textarea fontFamily={"Nunito"} fontWeight={"regular"}  _placeholder={{ color: "text.500" }} placeholder={"Hello I am Groot"} bgColor={"dark.700"} border={"none"} outline={"none"} _focusVisible={{ outlineColor: "white", outlineWidth: "1px" }} fontSize={"xs"} color={"text.500"} height={"150px"} resize={"none"}/>
                 <Button w={"100%"}  type='submit' bgColor={"brand.400"} color={"dark.800"} _hover={{ bgColor: "brand.500" }} fontSize={"xs"} fontWeight={"semibold"}>Send</Button>
             </VStack>
             <Image src={Groot} position={"absolute"} left={"0px"} top={"31.5%"} width={"300px"}/>
