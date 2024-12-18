@@ -26,11 +26,12 @@ interface Props {
     if (isLoading) return <div>Loading...</div>;
 
    
-    const [limit,setLimit] = useState<number>(7)
+    const [limit,setLimit] = useState<number>(6)
 
     if (movieData != undefined) {
 
     return (
+        <div >
         <Box w={'100%'} p={"25px 0%"}>
             <HStack>
                 <Icon as={icon} color={"brand.500"} fontSize={"xxl"} />
@@ -38,7 +39,7 @@ interface Props {
                     {title}
                 </Heading>
             </HStack>
-            <HStack p={"30px 0px"} gap={"15px"} flexWrap={"wrap"} alignItems={"center"} justifyContent={"start"}>
+            <HStack p={"30px 0px"} gap={"15px"} flexWrap={"wrap"} alignItems={"center"} >
                 <Card />
                 {
                     movieData.slice(0,limit).map((curr: Movie, index: number) => {
@@ -56,6 +57,7 @@ interface Props {
             }}
             position={"absolute"} cursor={"pointer"} fontSize={"xs"} right={"7%"} color={"brand.400"} fontFamily={"Nunito"}>See More</Text>
         </Box>
+        </div>
     )
 }
 else if(seriesData != undefined){
@@ -63,13 +65,13 @@ else if(seriesData != undefined){
         <Box w={'100%'} p={"25px 0%"}>
             <HStack>
                 <Icon as={icon} color={"brand.500"} fontSize={"xxl"} />
-                <Heading color={"text.100"} fontFamily={"Nunito"} fontWeight={"semibold"} fontSize={"md"}>
+                <Heading color={"brand.800"} fontFamily={"Nunito"} fontWeight={"semibold"} fontSize={"md"}>
                     {title}
                 </Heading>
             </HStack>
             <HStack p={"30px 0px"} gap={"15px"} flexWrap={"wrap"} alignItems={"center"} justifyContent={"start"}>
                 {
-                    seriesData?.slice(0, limit).map((curr: Series, index: number) => {
+                    seriesData?.slice(0, 7).map((curr: Series, index: number) => {
                         return (
                             <Card isMovie={false} title={curr.name} key={index} image={curr.poster_path} id={curr?.id} />
                         )
@@ -78,8 +80,8 @@ else if(seriesData != undefined){
             </HStack>
             <Text
                 onClick={() => {
-                    setLimit(limit + 7);
-                    if (limit > seriesData?.length) {
+                    setLimit(7 + 7);
+                    if (7 > seriesData?.length) {
                         
                     }
                 }}

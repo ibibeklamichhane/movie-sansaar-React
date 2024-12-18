@@ -29,20 +29,26 @@ export default TVSeriesPage;
 
 import { FC, } from 'react';
 //import Header from '../Component/Header';
-//import { Box } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import CardList from '../Component/CardList';
 //import { useQuery } from 'react-query'; // Import React Query hook
-import { usePopularSeries,useTrendingSeries,useUpComingSeries,useTopRatedSeries } from '../apis/SeriesApi'; // API service calls
+import { usePopularSeries,useTrendingSeries,useUpComingSeries,useTopRatedSeries,useSearchSeries } from '../apis/SeriesApi'; // API service calls
+import { useState } from 'react';
+import SearchBar from '../Component/SearchBar';
 
 interface Props {}
 
 const MoviePage: FC<Props> = () => {
   // Local state for pages (for pagination purposes)
  
+  const [searchQuery, setSearchQuery] = useState('');
+
   const { data: popularseries } = usePopularSeries();
   const { data: trendingseries } = useTrendingSeries();
   const { data: upComingseries } = useUpComingSeries();
   const { data: topRatedseries } = useTopRatedSeries();
+  const { data: searchResults, isFetching } = useSearchSeries(searchQuery);
+
 
   /*
   // Fetch trending movies
@@ -65,10 +71,26 @@ const MoviePage: FC<Props> = () => {
 
   return (
     <>
+      <SearchBar onSearch={(query) => setSearchQuery(query)} />
+      {searchQuery ? (
+        <>
+<div className="text-red-300">
+{/*<Box color="brand.500">Search result here</Box> */}
+  {isFetching ? (
+    <p className="text-red-500">Loading...</p>
+  ) : (
+    <CardList title="Search Results" seriesData={searchResults} />
+  )}
+</div>
+        </>
+      ) : (
+        <VStack alignItems={"flex-start"} m={"0px 5vw"}>
     <CardList title='Popular Series' seriesData={popularseries} />
      <CardList title='Trending Series' seriesData={trendingseries} />
     <CardList title='Up Coming Series' seriesData={upComingseries} />
     <CardList title='Top Rated Series' seriesData={topRatedseries} />
+    </VStack>
+     )}
     </>
 
 

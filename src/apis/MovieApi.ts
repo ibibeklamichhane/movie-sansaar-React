@@ -49,3 +49,18 @@ const fetchTrendingMovies = async (): Promise<Movie[]> => {
     return useQuery<Movie[], Error>('toprated', fetchTopRatedMovies);
   };
 // Similarly, create other functions for top-rated, upcoming, and trending movies
+
+
+const fetchSearchMovies = async (query: string): Promise<Movie[]> => {
+  if (!query) return [];
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&api_key=${API_KEY}`
+  );
+  return data.results;
+};
+
+export const useSearchMovies = (query: string) => {
+  return useQuery<Movie[], Error>(['searchMovies', query], () => fetchSearchMovies(query), {
+    enabled: !!query, // Only fetch if query is not empty
+  });
+};

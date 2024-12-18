@@ -89,7 +89,7 @@ const SeasonsAndEpisodes: React.FC<SeasonsAndEpisodesProps> = ({
           setSelectedEpisodeId(episode.id);
         }}
         className={`border-b border-black dark:border-white cursor-pointer p-2 hover:bg-gray-500 ${
-          selectedEpisodeId === episode.id ? "text-white bg-gray-700" : "dark:text-white"
+          selectedEpisodeId === episode.id ? "text-white bg-gray-700" : "dark:text-black"
         }`}
       >
         Episode {episode.episode_number}: {episode.name}

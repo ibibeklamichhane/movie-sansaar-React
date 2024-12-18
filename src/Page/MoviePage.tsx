@@ -34,18 +34,24 @@ let MoviePage:FC<Props> = ({}) => {
 export default MoviePage;*/
 
 import { FC  } from 'react';
+import {  Box,VStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import CardList from '../Component/CardList';
-import { usePopularMovies,useTrendingMovies,useUpComingMovies,useTopRatedMovies } from '../apis/MovieApi'; // API service calls
+import SearchBar from '../Component/SearchBar';
+import { usePopularMovies,useTrendingMovies,useUpComingMovies,useTopRatedMovies,useSearchMovies } from '../apis/MovieApi'; // API service calls
 
 interface Props {}
 
 const MoviePage: FC<Props> = () => {
   // Local state for pages (for pagination purposes)
  
+  const [searchQuery, setSearchQuery] = useState('');
   const { data: popularMovies } = usePopularMovies();
   const { data: trendingMovies } = useTrendingMovies();
   const { data: upComingMovies } = useUpComingMovies();
   const { data: topRatedMovies } = useTopRatedMovies();
+  const { data: searchResults, isFetching } = useSearchMovies(searchQuery);
+
 
   /*
   // Fetch trending movies
@@ -68,14 +74,38 @@ const MoviePage: FC<Props> = () => {
 
   return (
     <>
-    <CardList title='Popular Movies' movieData={popularMovies} />
-     <CardList title='Trending Movies' movieData={trendingMovies} />
-    <CardList title='Up Coming Movies' movieData={upComingMovies} />
-    <CardList title='Top Rated Movies' movieData={topRatedMovies} />
+
+
+      <SearchBar onSearch={(query) => setSearchQuery(query)} />
+        
+      {searchQuery ? (
+      <Box color="red.300"  maxW="6xl" px={2}>
+      {/* Content Block */}
+      {isFetching ? (
+        <Box color="red.500">Loading...</Box>
+      ) : (
+        <CardList title="Search Results" movieData={searchResults} />
+      )}
+    </Box>
+      ) : (
+        <VStack alignItems={"flex-start"} m={"0px 5vw"}>
+
+        <Box mx="auto" maxW="7xl" >
+          <CardList title="Popular Movies" movieData={popularMovies} />
+          <CardList title="Trending Movies" movieData={trendingMovies} />
+          <CardList title="Up Coming Movies" movieData={upComingMovies} />
+          <CardList title="Top Rated Movies" movieData={topRatedMovies} />
+          </Box>
+          </VStack>
+      )}
     </>
-
-
   );
 };
 
 export default MoviePage;
+//R01281438
+
+//294856
+
+//pin 000123
+//tpin; 123000

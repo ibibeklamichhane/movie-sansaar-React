@@ -17,18 +17,18 @@ let NavBar: FC<Props> = ({ }) => {
             <HStack w={"100%"} justifyContent={"space-between"}>
                 <Heading fontFamily={"Playfair"} color={"brand.500"} fontSize={"xl"} fontWeight={"bold"}>Movie Sansaar</Heading>
                 <HStack gap={"30px"}>
-                    <Link to="/"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>Home</Text></Link>
-                    <Link to="/movie"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>Movies</Text></Link>    
-                    <Link to="/series"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>TV Series</Text></Link>
+                    <Link to="/"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Home</Text></Link>
+                    <Link to="/movie"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Movies</Text></Link>    
+                    <Link to="/series"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>TV Series</Text></Link>
                     <HStack as={"button"} onClick={() => {
                         setMenu(!menu);
                     }}>
-                        <Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>Genre</Text>
+                        <Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Genre</Text>
                         <ChevronDownIcon color={"text.100"} transitionDuration="300ms" fontSize={"rg"} transform={!menu ? "rotate(0deg)" : "rotate(180deg)"} />
                     </HStack>
-                    <Link to="/contact"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"text.100"}>Contact Us</Text></Link>
+                    <Link to="/contact"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Contact Us</Text></Link>
                     <Link to={"/log-in"}>
-                        <Button fontFamily={"Nunito"} fontSize={"xs"} p="0px 15px" height={"35px"} border={"1px"} color={"text.100"} bgColor={"transparent"} _hover={{ bgColor: "dark.900" }}>
+                        <Button fontFamily={"Nunito"} fontSize={"xs"} p="0px 15px" height={"35px"} border={"1px"} color={"brand.500"} bgColor={"transparent"} _hover={{ bgColor: "dark.900" }}>
                             Sign In
                         </Button>
                     </Link>
