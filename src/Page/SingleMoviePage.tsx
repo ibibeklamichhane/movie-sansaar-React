@@ -25,11 +25,11 @@ let SingleMoviePage: FC<Props> = ({}) => {
   const [videoUrl, setVideoUrl] = useState<string>("");
   const [streamingUrl, setStreamingUrl] = useState<string>("");
 
-  const pageg =setPage
+  const pageg = setPage;
   console.log(pageg);
-  const stream =streamingUrl
+  const stream = streamingUrl;
   console.log(stream);
-  
+
   useEffect(() => {
     const getMovieDetails = async () => {
       try {
@@ -92,7 +92,7 @@ let SingleMoviePage: FC<Props> = ({}) => {
         );
         const providers = response.data.results; // Adjust based on the API response
         if (providers && providers.US) {
-         // const { link } = providers.US; // Assuming US is the region and link is the streaming URL
+          // const { link } = providers.US; // Assuming US is the region and link is the streaming URL
           setStreamingUrl(`https://multiembed.mov/?video_id=${id}&tmdb=1`);
         }
       } catch (e) {
@@ -116,138 +116,6 @@ let SingleMoviePage: FC<Props> = ({}) => {
       >
         Watch Now : Movie {movieData?.original_title}
       </Text>
-      {/* ReactPlayer 
-            {videoUrl && (
-        <Box w={"90vw"} h={"550px"}>
-          <ReactPlayer
-            url={videoUrl}
-            width="100%"
-            height="100%"
-            controls={true}
-            playing={false}
-          />
-        </Box>
-      )}*/}
-      {/* Movie Player  
-            {streamingUrl ? (
-        <ReactPlayer
-          url={streamingUrl} // Link to the streaming source
-          width="100%"
-          height="500px"
-       
-          controls={true} // Show player controls
-          playing={true} // If you want autoplay, set this to true
-        />
-      ) : (
-        <Text color="red.500">Movie streaming not available</Text>
-      )}  */}
-      {/*
-                  <div className='movie-player m-2 sm:m-5 mb-10 w-full h-full z-[50]'>
-                <iframe
-                    className="sm:w-[90%] md:w-[80%] w-full min-h-[50vh] sm:min-h-[80vh] z-[50] m-auto rounded-xl border-1 shadow-2xl"
-                    style={{
-                        borderColor: 'rgba(0, 0, 0, 0.5)'
-                    }}
-                    src={`https://multiembed.mov/?video_id=${id}&tmdb=1`}
-                    allowFullScreen
-                />
-            </div>
-{/* 
-      <Box
-        w={"90vw"}
-        h={"550px"}
-        bg={`linear-gradient(rgb(31, 29, 31,0.6),rgb(31, 29, 31,0.6)),url(${
-          "https://image.tmdb.org/t/p/original" + movieData?.backdrop_path
-        })`}
-        style={{
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        display={"flex"}
-      ></Box> */}
-      {/*
-
-      <Box style={{ margin: "20px auto" }}>
-        <Text
-          fontFamily={"Nunito"}
-          color={"text.500"}
-          textAlign={"center"}
-          m={"10px 0px"}
-          fontWeight={"regular"}
-          fontSize={"xs"}
-        >
-          If the current server doesn’t work please try other server below
-        </Text>
-        <HStack
-          w={"40vw"}
-          bgColor={"dark.800"}
-          justifyContent={"space-between"}
-          p={"0px 20px"}
-          borderRadius={"10px"}
-        >
-          <Text
-            color={"brand.500"}
-            m={"10px 0px"}
-            fontWeight={"medium"}
-            fontSize={"xs"}
-          >
-            Vidstream
-          </Text>
-          <Text
-            cursor={"pointer"}
-            _hover={{ color: "brand.500" }}
-            color={"text.500"}
-            m={"10px 0px"}
-            fontWeight={"medium"}
-            fontSize={"xs"}
-          >
-            My Cloud
-          </Text>
-          <Text
-            cursor={"pointer"}
-            _hover={{ color: "brand.500" }}
-            color={"text.500"}
-            m={"10px 0px"}
-            fontWeight={"medium"}
-            fontSize={"xs"}
-          >
-            Up Cloud
-          </Text>
-          <Text
-            cursor={"pointer"}
-            _hover={{ color: "brand.500" }}
-            color={"text.500"}
-            m={"10px 0px"}
-            fontWeight={"medium"}
-            fontSize={"xs"}
-          >
-            DoodStream
-          </Text>
-          <Button
-            fontFamily={"Nunito"}
-            color={"brand.500"}
-            fontWeight={"medium"}
-            fontSize={"xxs"}
-            bgColor={"dark.900"}
-            _hover={{ bgColor: "dark.800" }}
-          >
-            Watch Later
-          </Button>
-          <Button
-            fontFamily={"Nunito"}
-            color={"brand.500"}
-            fontWeight={"medium"}
-            fontSize={"xxs"}
-            leftIcon={<Icon color={"brand.400"} />}
-            bgColor={"dark.900"}
-            _hover={{ bgColor: "dark.800" }}
-          >
-            Like
-          </Button>
-        </HStack>
-      </Box> */}
       <HStack gap={"40px"} pb={"40px"} alignItems={"flex-start"}>
         <Image
           src={"https://image.tmdb.org/t/p/original" + movieData?.poster_path}
@@ -476,7 +344,7 @@ let SingleMoviePage: FC<Props> = ({}) => {
       {/* ReactPlayer  */}
       {videoUrl && (
         <Box w={"70vw"} h={"400px"} mx="auto">
-                 <Button
+          <Button
             fontFamily={"Nunito"}
             color={"black"}
             m={"10px 0px"}
@@ -496,36 +364,30 @@ let SingleMoviePage: FC<Props> = ({}) => {
       )}
 
       <Box w={"70vw"} h={"400px"} mx="auto" mt="64px">
-      <Button
-            fontFamily={"Nunito"}
-            color={"black"}
-            m={"10px 0px"}
-            fontWeight={"semibold"}
-            fontSize={"md"}
-          >
+        <Button
+          fontFamily={"Nunito"}
+          color={"black"}
+          m={"10px 0px"}
+          fontWeight={"semibold"}
+          fontSize={"md"}
+        >
           Watch Movie
-          </Button>
-      <iframe
+        </Button>
+        <iframe
           style={{
             borderColor: "rgba(0, 0, 0, 0.5)",
             width: "100%",
             height: "100%",
-            border: 'none'
+            border: "none",
           }}
           src={`https://multiembed.mov/?video_id=${id}&tmdb=1`}
           allowFullScreen
         />
-      
       </Box>
 
-    <Box marginTop={"56px"} >
-    <CardList
-            title="Similar Movies"
-            movieData={similarMovies}
-          />
-    </Box>
-
-   
+      <Box marginTop={"56px"}>
+        <CardList title="Similar Movies" movieData={similarMovies} />
+      </Box>
     </VStack>
   );
 };

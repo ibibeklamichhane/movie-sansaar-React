@@ -2,7 +2,6 @@ import { Input, Text, VStack, Image, Heading, HStack } from '@chakra-ui/react';
 import { FC } from "react";
 import { LoginInputProps } from "../Interface";
 import { Link } from 'react-router-dom';
-//import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
@@ -68,8 +67,8 @@ export const LoginInput: FC<LoginInputProps> = ({
     </>
   );
 };
-//export const Card: FC<any> = ({ title,key,image,date,genre,id }) => {
-  export const Card: FC<any> = ({ title,key,image,date,id,isMovie }) => {
+
+export const Card: FC<any> = ({ title,key,image,date,id,isMovie }) => {
     return (
       <VStack key = {key} to={isMovie ? `/movie/${id}` : `/series/${id}`} as={Link} width={"170px"} alignItems={"flex-start"} bgColor={"dark.900"} borderRadius={"5px"} overflow={"hidden"} _hover={{
         ".gradient-box":{

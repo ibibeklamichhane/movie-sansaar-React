@@ -10,7 +10,7 @@ const SearchBar: FC<Props> = ({ onSearch }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-    onSearch(e.target.value); // Trigger search
+    onSearch(e.target.value); 
   };
 
   return (

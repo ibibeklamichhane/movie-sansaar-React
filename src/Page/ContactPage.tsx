@@ -9,14 +9,11 @@ interface Props{
 }
 
 let ContactPage:FC<Props> = ({}) => {
-
     const { register, handleSubmit } = useForm<any>();
-
     const onSubmit = handleSubmit(data => {
         console.log({ ...data})
       });
-    
-
+      
     return (
         <VStack w={"100%"} h={"90vh"} alignItems={'center'} justifyContent={"center"}>
             <VStack bgColor={"dark.800"} borderRadius={"10px"} w={"35%"} p={"40px 30px"} alignItems={"flex-start"} as={"form"} onSubmit={onSubmit}>

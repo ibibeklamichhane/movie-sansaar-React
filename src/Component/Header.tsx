@@ -2,7 +2,6 @@ import { Box, HStack, Heading, VStack, Text,Button,Image } from '@chakra-ui/reac
 import { FC } from 'react';
 
 interface Props {
-
 }
 
 let genre = [

@@ -3,10 +3,6 @@ import { Box, HStack, Heading,Button } from '@chakra-ui/react';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { Card } from '../Component/CustomComponents';
 import { Movie,Series } from '../Interface/index.ts';
-//import {useAppDispatch } from '../App/store';
-//import { setPopularPage } from '../App/movieListSlice.ts';
-//import React from 'react';
-//import { usePopularMovies } from '../apis/MovieApi.ts';
 
 interface Props {
     icon?: typeof LocalFireDepartmentIcon,
@@ -18,9 +14,7 @@ interface Props {
     isLoading?: boolean;
 }
 
-
-//let CardList: FC<Props> = ({ icon, title,movieData,page,appendData,seriesData ,isLoading}) => {
-    let CardList: FC<Props> = ({  title,movieData,seriesData ,isLoading}) => {
+let CardList: FC<Props> = ({  title,movieData,seriesData ,isLoading}) => {
 
 
     if (isLoading) return <div>Loading...</div>;
