@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.codegpt
+
+# Ignore TypeScript build info files
+*.tsbuildinfo

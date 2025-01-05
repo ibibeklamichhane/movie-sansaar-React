@@ -3,31 +3,40 @@ import {
   Heading,
   Button,
   Text,
-  HStack,
-  Checkbox,
+
   useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { LoginInput, successToast } from "../Component/CustomComponents.tsx";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { loginDataInterface, loginSchema } from "../Interface/formSchema.ts";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { loginDataInterface, loginSchema } from "../Interface/formSchema.ts";
 import { Link } from "react-router-dom";
+import { useLogin } from "../apis/authApi.ts";
+import { LoginCredentials } from "../Interface/AuthInterfaces.ts";
+
 
 export default function LoginPage() {
   const toast = useToast();
+  const { mutateAsync:logindata } = useLogin();
 
-  const {
+  const {    
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<loginDataInterface>({
-    resolver: yupResolver(loginSchema),
+  } = useForm<LoginCredentials>({
   });
   // const onSubmit = handleSubmit(data => {
-  const onSubmit = handleSubmit(() => {
-    successToast(toast, "Login", "Successfully");
-  });
+  const onSubmit = handleSubmit(async(value:LoginCredentials) => {
+    try {
+      await logindata(value);
+        successToast(toast, "Login", "Successfull");
 
+  }
+  catch (error) {
+    console.log(error);
+    };
+  }
+  );
   return (
     <VStack
       bgColor={"dark.900"}
@@ -75,7 +84,7 @@ export default function LoginPage() {
         <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
           {errors.password == null ? "" : errors.password.message}
         </Text>
-
+{/* 
         <HStack>
           <Checkbox
             {...register("saveAuth")}
@@ -85,7 +94,7 @@ export default function LoginPage() {
           <Text color={"brand.500"} fontWeight={"regular"} fontSize={"xxs"}>
             Remember me
           </Text>
-        </HStack>
+        </HStack> */}
 
         <Button
           w={"100%"}
@@ -112,3 +121,4 @@ export default function LoginPage() {
     </VStack>
   );
 }
+  

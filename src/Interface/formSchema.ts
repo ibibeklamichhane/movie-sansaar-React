@@ -15,7 +15,7 @@ export const signupSchema = yup.object({
     .minUppercase(1, 'password must contain at least 1 upper case letter')
     .minNumbers(1, 'password must contain at least 1 number')
     .minSymbols(1, 'password must contain at least 1 special character'),
-    repeatPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match").required('Please enter password'),
+    repeatPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match"),
     saveAuth:yup.boolean().required()
   }).required();
 export type signupDataInterface = yup.InferType<typeof signupSchema>;

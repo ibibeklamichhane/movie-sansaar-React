@@ -4,30 +4,36 @@ import {
   Heading,
   Button,
   Text,
-  HStack,
-  Checkbox,
-  useToast,
+
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { LoginInput, successToast } from "../Component/CustomComponents.tsx";
+import { LoginInput } from "../Component/CustomComponents.tsx";
 import { Link } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { signupDataInterface, signupSchema } from "../Interface/formSchema.ts";
+//import { yupResolver } from "@hookform/resolvers/yup";
+//import { signupDataInterface, signupSchema } from "../Interface/formSchema.ts";
+import { useRegister } from "../apis/authApi.ts";
+import { RegisterCredentials } from "../Interface/AuthInterfaces.ts";
 
 const SignupPage: FC<any> = ({}) => {
-  const toast = useToast();
-
+  const { mutateAsync:registerdata } = useRegister();
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<signupDataInterface>({
-    resolver: yupResolver(signupSchema),
+    register,handleSubmit,formState: { errors }} = useForm<RegisterCredentials>({
   });
 
-  const onSubmit = handleSubmit(() => {
-    successToast(toast, "signup", "Successfully");
-  });
+  const onSubmit = handleSubmit(async (value:RegisterCredentials) => {
+    console.log(value);
+    const { repeatPassword, ...payload } = value;
+    try {
+      await registerdata(payload);
+      console.log(value);
+        }
+        catch (error) {
+          console.log(error);
+          }
+          console.log(value);
+
+          }
+        );
 
   return (
 <VStack
@@ -97,16 +103,7 @@ const SignupPage: FC<any> = ({}) => {
     <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
       {errors.repeatPassword == null ? "" : errors.repeatPassword.message}
     </Text>
-    <HStack>
-      <Checkbox
-        {...register("saveAuth")}
-        outline={"none"}
-        colorScheme={"whiteAlpha"}
-      />
-      <Text color={"brand.500"} fontWeight={"regular"} fontSize={"xxs"}>
-        Remember me
-      </Text>
-    </HStack>
+
     <Button
       w={"100%"}
       type="submit"
