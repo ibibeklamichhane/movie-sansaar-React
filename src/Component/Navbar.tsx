@@ -15,7 +15,7 @@ let NavBar: FC<Props> = ({ }) => {
     return (
         <VStack p={"20px 5%"} alignItems={"flex-end"}>
             <HStack w={"100%"} justifyContent={"space-between"}>
-                <Heading fontFamily={"Playfair"} color={"brand.500"} fontSize={"xl"} fontWeight={"bold"}>Movie Sansaar</Heading>
+                <Heading fontFamily={"Playfair"} color={"brand.500"} fontSize={"xl"} fontWeight={"bold"}>Movie Naya Sansaar</Heading>
                 <HStack gap={"30px"}>
                     <Link to="/"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Home</Text></Link>
                     <Link to="/movie"><Text fontFamily={"Nunito"} fontSize={"xs"} color={"brand.500"}>Movies</Text></Link>    
