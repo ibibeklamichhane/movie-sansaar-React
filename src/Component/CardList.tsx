@@ -23,10 +23,10 @@ interface Props {
 let CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
   if (isLoading) return <div>Loading...</div>;
 
-  const initialLimit = useBreakpointValue({ base: 5, sm: 10 }) || 10;
+  const initialLimit = useBreakpointValue({ base: 6, sm: 10 }) || 10;
 
   const [limit, setLimit] = useState<number>(initialLimit);
-  const [Serieslimit, setSeriesLimit] = useState<number>(12);
+  const [Serieslimit, setSeriesLimit] = useState<number>(initialLimit);
 
   if (movieData != undefined) {
     return (
@@ -42,24 +42,7 @@ let CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
               {title}
             </Heading>
           </HStack>
-          {/* <HStack
-            p={"30px 0px"}
-            gap={"15px"}
-            flexWrap={"wrap"}
-            alignItems={"center"}
-          >
-            {movieData.slice(0, limit).map((curr: Movie, index: number) => {
-              return (
-                <Card
-                  isMovie={true}
-                  title={curr.title}
-                  key={index}
-                  image={curr.poster_path}
-                  id={curr?.id}
-                />
-              );
-            })}
-          </HStack> */}
+
           <Box
             display="grid"
             gridTemplateColumns={{
@@ -81,19 +64,21 @@ let CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
             ))}
           </Box>
 
-          <Button
-            onClick={() => {
-              setLimit(limit + 6);
-            }}
-            position={"absolute"}
-            cursor={"pointer"}
-            fontSize={"xs"}
-            right={"7%"}
-            color={"brand.400"}
-            fontFamily={"Nunito"}
-          >
-            See More
-          </Button>
+          {limit < movieData?.length && (
+            <Button
+              onClick={() => {
+                setLimit(limit + 6);
+              }}
+              position={"absolute"}
+              cursor={"pointer"}
+              fontSize={"xs"}
+              right={"7%"}
+              color={"brand.400"}
+              fontFamily={"Nunito"}
+            >
+              See More
+            </Button>
+          )}
         </Box>
       </div>
     );
@@ -110,12 +95,15 @@ let CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
             {title}
           </Heading>
         </HStack>
-        <HStack
-          p={"30px 0px"}
-          gap={"15px"}
-          flexWrap={"wrap"}
-          alignItems={"center"}
-          justifyContent={"start"}
+        <Box
+          display="grid"
+          gridTemplateColumns={{
+            base: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(5, 1fr)",
+          }}
+          gap="15px"
+          p="30px 0px"
         >
           {seriesData
             ?.slice(0, Serieslimit)
@@ -130,22 +118,22 @@ let CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
                 />
               );
             })}
-        </HStack>
-        <Button
-          onClick={() => {
-            setSeriesLimit(Serieslimit + 6);
-            if (6 > seriesData?.length) {
-            }
-          }}
-          position={"absolute"}
-          cursor={"pointer"}
-          fontSize={"xs"}
-          right={"7%"}
-          color={"brand.400"}
-          fontFamily={"Nunito"}
-        >
-          See More
-        </Button>
+        </Box>
+        {Serieslimit < seriesData?.length && (
+          <Button
+            onClick={() => {
+              setSeriesLimit(Serieslimit + 6);
+            }}
+            position={"absolute"}
+            cursor={"pointer"}
+            fontSize={"xs"}
+            right={"7%"}
+            color={"brand.400"}
+            fontFamily={"Nunito"}
+          >
+            See More
+          </Button>
+        )}
       </Box>
     );
   } else {

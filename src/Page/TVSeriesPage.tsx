@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { VStack } from "@chakra-ui/react";
+import { VStack, Box } from "@chakra-ui/react";
 import CardList from "../Component/CardList";
 import {
   usePopularSeries,
@@ -39,11 +39,13 @@ const MoviePage: FC<Props> = () => {
           </div>
         </>
       ) : (
-        <VStack alignItems={"flex-start"} m={"0px 8vw"}>
-          <CardList title="Popular Series" seriesData={popularseries} />
-          <CardList title="Trending Series" seriesData={trendingseries} />
-          <CardList title="Up Coming Series" seriesData={upComingseries} />
-          <CardList title="Top Rated Series" seriesData={topRatedseries} />
+        <VStack m={"0px 8vw"}>
+          <Box maxW="10xl">
+            <CardList title="Popular Series" seriesData={popularseries} />
+            <CardList title="Trending Series" seriesData={trendingseries} />
+            <CardList title="Up Coming Series" seriesData={upComingseries} />
+            <CardList title="Top Rated Series" seriesData={topRatedseries} />
+          </Box>
         </VStack>
       )}
     </>

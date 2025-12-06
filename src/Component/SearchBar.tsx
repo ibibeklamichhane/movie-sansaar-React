@@ -1,33 +1,5 @@
-// import { FC, useState } from 'react';
-// import { Input, Box } from '@chakra-ui/react';
-
-// interface Props {
-//   onSearch: (query: string) => void;
-// }
-
-// const SearchBar: FC<Props> = ({ onSearch }) => {
-//   const [input, setInput] = useState('');
-
-//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setInput(e.target.value);
-//     onSearch(e.target.value);
-//   };
-
-//   return (
-
-//     <Box mx="auto" maxW="4xl" px={1}>
-//       <Input color="brand.500"
-//         placeholder="Search for movies,series......."
-//         value={input}
-//         onChange={handleInputChange}
-//         size="md"
-//       />
-//     </Box>
-//   );
-// };
-
-// export default SearchBar;
 import { FC, useState } from "react";
+import { Input, Box } from "@chakra-ui/react";
 
 interface Props {
   onSearch: (query: string) => void;
@@ -42,15 +14,25 @@ const SearchBar: FC<Props> = ({ onSearch }) => {
   };
 
   return (
-    <div className="w-full  md:max-w-4xl mx-auto">
-      <input
-        className="w-full t border-4 h-10 border-red-500
-                   text-white px-4"
-        placeholder="Search for movies, series.."
+    <Box
+      mx="auto"
+      maxW={{ base: "100%", md: "4xl" }}
+      px={{ base: 4, sm: 6, md: 1 }}
+    >
+      <Input
+        color="brand.500"
+        placeholder="Search for movies,series......."
         value={input}
         onChange={handleInputChange}
+        size={{ base: "sm", md: "md" }}
+        borderColor="brand.500"
+        borderWidth="2px"
+        _focus={{
+          borderColor: "brand.500",
+          boxShadow: "0 0 0 1px var(--chakra-colors-brand-500)",
+        }}
       />
-    </div>
+    </Box>
   );
 };
 
