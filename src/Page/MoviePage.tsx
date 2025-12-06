@@ -10,23 +10,26 @@ import {
   useTopRatedMovies,
   useSearchMovies,
 } from "../apis/MovieApi";
+import { useDebouncedValue } from "../hooks/useDebounce";
 
 interface Props {}
 
 const MoviePage: FC<Props> = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
   const { data: popularMovies } = usePopularMovies();
   const { data: trendingMovies } = useTrendingMovies();
   const { data: upComingMovies } = useUpComingMovies();
   const { data: topRatedMovies } = useTopRatedMovies();
-  const { data: searchResults, isFetching } = useSearchMovies(searchQuery);
+  const { data: searchResults, isFetching } =
+    useSearchMovies(debouncedSearchQuery);
 
   return (
     <>
       <SearchBar onSearch={(query) => setSearchQuery(query)} />
 
       {searchQuery ? (
-        <Box color="red.300" maxW="6xl" px={2}>
+        <Box>
           {isFetching ? (
             <Box>Loading...</Box>
           ) : (

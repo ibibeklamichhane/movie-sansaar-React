@@ -7,7 +7,7 @@ import {
   RegisterResponse,
   RegisterCredentials,
 } from "../Interface/AuthInterfaces";
-
+import { toast } from "react-toastify";
 
 export const loginApi = async (
   credentials: LoginCredentials
@@ -21,17 +21,21 @@ export const loginApi = async (
 
 export const useLogin = () => {
   const navigate = useNavigate();
-
   return useMutation(loginApi, {
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
       if (data.userId) {
         localStorage.setItem("userId", data.userId);
       }
-      navigate("/movie");
+      toast.success("Login in successful");
+
+      navigate("/watchlist");
+
     },
-    onError: () => {
-  
+    onError: (
+    ) => {
+      toast.error("Invalid credentials");
+      console.log("Invalid")
     },
   });
 };

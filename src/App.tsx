@@ -18,6 +18,9 @@ function App() {
           <Route path="/" element={<LayOut />}>
             <Route index element={<MoviePage />} />
             <Route path="/movie" element={<MoviePage />} />{" "}
+            <Route path="/watchlist" element={
+              <h1 className ="text-white">Welcome to the user movie list section</h1>
+            } />{" "}
             <Route path="/series" element={<TVSeriesPage />} />{" "}
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/movie/:id" element={<SingleMoviePage />} />

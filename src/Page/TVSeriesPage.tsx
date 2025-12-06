@@ -1,5 +1,4 @@
 import { FC } from "react";
-//import Header from '../Component/Header';
 import { VStack } from "@chakra-ui/react";
 import CardList from "../Component/CardList";
 import {
@@ -8,20 +7,22 @@ import {
   useUpComingSeries,
   useTopRatedSeries,
   useSearchSeries,
-} from "../apis/SeriesApi"; 
+} from "../apis/SeriesApi";
 import { useState } from "react";
 import SearchBar from "../Component/SearchBar";
+import { useDebouncedValue } from "../hooks/useDebounce";
 
 interface Props {}
 
 const MoviePage: FC<Props> = () => {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
   const { data: popularseries } = usePopularSeries();
   const { data: trendingseries } = useTrendingSeries();
   const { data: upComingseries } = useUpComingSeries();
   const { data: topRatedseries } = useTopRatedSeries();
-  const { data: searchResults, isFetching } = useSearchSeries(searchQuery);
+  const { data: searchResults, isFetching } =
+    useSearchSeries(debouncedSearchQuery);
 
   return (
     <>
