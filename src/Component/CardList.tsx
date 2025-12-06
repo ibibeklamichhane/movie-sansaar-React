@@ -23,7 +23,7 @@ interface Props {
 let CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
   if (isLoading) return <div>Loading...</div>;
 
-  const initialLimit = useBreakpointValue({ base: 6, md: 10 }) || 10;
+  const initialLimit = useBreakpointValue({ base: 5, sm: 10 }) || 10;
 
   const [limit, setLimit] = useState<number>(initialLimit);
   const [Serieslimit, setSeriesLimit] = useState<number>(12);
