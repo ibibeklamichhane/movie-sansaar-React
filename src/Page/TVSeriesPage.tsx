@@ -1,6 +1,5 @@
 import { FC } from "react";
-//import Header from '../Component/Header';
-import { VStack } from "@chakra-ui/react";
+import { VStack, Box } from "@chakra-ui/react";
 import CardList from "../Component/CardList";
 import {
   usePopularSeries,
@@ -8,20 +7,22 @@ import {
   useUpComingSeries,
   useTopRatedSeries,
   useSearchSeries,
-} from "../apis/SeriesApi"; 
+} from "../apis/SeriesApi";
 import { useState } from "react";
 import SearchBar from "../Component/SearchBar";
+import { useDebouncedValue } from "../hooks/useDebounce";
 
 interface Props {}
 
 const MoviePage: FC<Props> = () => {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
   const { data: popularseries } = usePopularSeries();
   const { data: trendingseries } = useTrendingSeries();
   const { data: upComingseries } = useUpComingSeries();
   const { data: topRatedseries } = useTopRatedSeries();
-  const { data: searchResults, isFetching } = useSearchSeries(searchQuery);
+  const { data: searchResults, isFetching } =
+    useSearchSeries(debouncedSearchQuery);
 
   return (
     <>
@@ -38,11 +39,13 @@ const MoviePage: FC<Props> = () => {
           </div>
         </>
       ) : (
-        <VStack alignItems={"flex-start"} m={"0px 8vw"}>
-          <CardList title="Popular Series" seriesData={popularseries} />
-          <CardList title="Trending Series" seriesData={trendingseries} />
-          <CardList title="Up Coming Series" seriesData={upComingseries} />
-          <CardList title="Top Rated Series" seriesData={topRatedseries} />
+        <VStack m={"0px 8vw"}>
+          <Box maxW="10xl">
+            <CardList title="Popular Series" seriesData={popularseries} />
+            <CardList title="Trending Series" seriesData={trendingseries} />
+            <CardList title="Up Coming Series" seriesData={upComingseries} />
+            <CardList title="Top Rated Series" seriesData={topRatedseries} />
+          </Box>
         </VStack>
       )}
     </>
