@@ -27,7 +27,7 @@ let CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
 
   const [limit, setLimit] = useState<number>(initialLimit);
   const [Serieslimit, setSeriesLimit] = useState<number>(initialLimit);
-
+  // this is for rendering the card list for movies
   if (movieData != undefined) {
     return (
       <div>
