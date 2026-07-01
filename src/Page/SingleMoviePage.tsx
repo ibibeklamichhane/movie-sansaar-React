@@ -1,34 +1,27 @@
-import {
-  Box,
-  Text,
-  VStack,
-  HStack,
-  Image,
-  Heading,
-  Button,
-} from "@chakra-ui/react";
-import { FC, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Movie, MovieCast, MovieDetail } from "../Interface";
-import CardList from "../Component/CardList";
 import ReactPlayer from "react-player";
+
+import { Movie, MovieCast, MovieDetail } from "../Interface";
+
+import CardList from "../Component/CardList";
+import { Button } from "../components/ui/button";
 
 interface Props {}
 
-let SingleMoviePage: FC<Props> = ({}) => {
+const SingleMoviePage: React.FC<Props> = () => {
   const { id } = useParams();
-  const [movieData, setMovieData] = useState<MovieDetail>();
-  const [movieCast, setMovieCast] = useState<MovieCast>();
-  const [page, setPage] = useState<number>(1);
-  const [similarMovies, setSimilarMovies] = useState<Array<Movie>>([]);
-  const [videoUrl, setVideoUrl] = useState<string>("");
-  const [streamingUrl, setStreamingUrl] = useState<string>("");
 
-  const pageg = setPage;
-  console.log(pageg);
-  const stream = streamingUrl;
-  console.log(stream);
+  const [movieData, setMovieData] = useState<MovieDetail>();
+
+  const [movieCast, setMovieCast] = useState<MovieCast>();
+
+  const [page] = useState<number>(1);
+
+  const [similarMovies, setSimilarMovies] = useState<Array<Movie>>([]);
+
+  const [videoUrl, setVideoUrl] = useState<string>("");
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -36,18 +29,23 @@ let SingleMoviePage: FC<Props> = ({}) => {
         const response = await axios(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${
             import.meta.env.VITE_REACT_API_KEY
-          }`
+          }`,
         );
+
         const data = response.data;
+
         setMovieData(data);
+
         const videoResponse = await axios(
           `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${
             import.meta.env.VITE_REACT_API_KEY
-          }`
+          }`,
         );
+
         const videoData = videoResponse.data.results.find(
-          (video: any) => video.type === "Trailer" && video.site === "YouTube"
+          (video: any) => video.type === "Trailer" && video.site === "YouTube",
         );
+
         if (videoData) {
           setVideoUrl(`https://www.youtube.com/watch?v=${videoData.key}`);
         }
@@ -61,334 +59,222 @@ let SingleMoviePage: FC<Props> = ({}) => {
         const response = await axios(
           `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${
             import.meta.env.VITE_REACT_API_KEY
-          }`
+          }`,
         );
-        const data = response.data;
-        setMovieCast(data);
+
+        setMovieCast(response.data);
       } catch (e) {
         console.log(e);
       }
     };
+
     const getSimilarMovie = async () => {
       try {
         const response = await axios(
           `https://api.themoviedb.org/3/discover/movie?with_genres=28,16&api_key=${
             import.meta.env.VITE_REACT_API_KEY
-          }&page=${page}`
+          }&page=${page}`,
         );
-        const data = response.data.results;
-        setSimilarMovies(data);
+
+        setSimilarMovies(response.data.results);
       } catch (e) {
         console.log(e);
       }
     };
-    // Fetch the streaming URL
-    const getStreamingUrl = async () => {
-      try {
-        const response = await axios(
-          `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${
-            import.meta.env.VITE_REACT_API_KEY
-          }`
-        );
-        const providers = response.data.results; // Adjust based on the API response
-        if (providers && providers.US) {
-          // const { link } = providers.US; // Assuming US is the region and link is the streaming URL
-          setStreamingUrl(`https://multiembed.mov/?video_id=${id}&tmdb=1`);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
+
     getMovieDetails();
     getMovieCast();
     getSimilarMovie();
-    getStreamingUrl();
-  }, [id]);
+  }, [id, page]);
 
   return (
-    <VStack alignItems={"flex-start"} m={"0px 5vw"}>
-      <Text
-        fontFamily={"Nunito"}
-        color={"brand.500"}
-        m={"10px 0px"}
-        fontWeight={"regular"}
-        fontSize={"xs"}
+    <div className="flex flex-col items-start px-[5vw] text-white mt-4">
+      {/* MAIN SECTION */}
+      <div
+        className="
+          flex
+          gap-10
+          pb-10
+          items-start
+          w-full
+        "
       >
-        Watch Now : Movie {movieData?.original_title}
-      </Text>
-      <HStack gap={"40px"} pb={"40px"} alignItems={"flex-start"}>
-        <Image
-          src={"https://image.tmdb.org/t/p/original" + movieData?.poster_path}
-          w={"25%"}
-          height={"400px"}
-          borderRadius={"5px"}
-          objectFit={"cover"}
+        {/* POSTER */}
+        <img
+          src={`https://image.tmdb.org/t/p/original${movieData?.poster_path}`}
+          alt={movieData?.original_title}
+          className="
+            w-[25%]
+            h-[400px]
+            object-cover
+            rounded-md
+          "
         />
-        <VStack w={"75%"} alignItems={"flex-start"}>
-          <Heading
-            fontFamily={"Nunito"}
-            color={"text.200"}
-            m={"10px 0px"}
-            fontWeight={"semibold"}
-            fontSize={"md"}
+
+        {/* DETAILS */}
+        <div
+          className="
+            w-[75%]
+            flex
+            flex-col
+            items-start
+          "
+        >
+          <h1
+            className="
+              text-2xl
+              font-semibold
+              text-gray-100
+              my-2
+              font-nunito
+            "
           >
             {movieData?.original_title}
-          </Heading>
-          <Text
-            fontFamily={"Nunito"}
-            color={"text.100"}
-            m={"10px 0px"}
-            fontWeight={"regular"}
-            fontSize={"xxs"}
+          </h1>
+
+          <p
+            className="
+              text-sm
+              text-gray-300
+              my-2
+              leading-relaxed
+            "
           >
             {movieData?.overview}
-          </Text>
-          <table>
-            <tbody>
-              <tr>
-                <td style={{ width: "180px" }}>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"medium"}
-                    fontSize={"xxs"}
+          </p>
+
+          {/* INFO TABLE */}
+          <div className="mt-4 space-y-3 text-sm">
+            <InfoRow label="Type" value="Movie" />
+
+            <InfoRow
+              label="Country"
+              value={movieData?.production_countries
+                ?.map((c) => c.name)
+                .join(", ")}
+            />
+
+            <InfoRow
+              label="Genre"
+              value={movieData?.genres?.map((g) => g.name).join(", ")}
+            />
+
+            <InfoRow label="Release" value={movieData?.release_date} />
+
+            <InfoRow
+              label="Production Company"
+              value={movieData?.production_companies
+                ?.map((c) => c.name)
+                .join(", ")}
+            />
+
+            <InfoRow label="Tag" value={movieData?.tagline} />
+
+            {/* CAST */}
+            <div className="flex">
+              <p
+                className="
+                  w-[180px]
+                  text-gray-400
+                  font-medium
+                "
+              >
+                Cast :
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {movieCast?.cast?.slice(0, 6).map((curr) => (
+                  <a
+                    key={curr.id}
+                    href={`https://www.google.com/search?q=${curr.name}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="
+                        text-blue-400
+                        hover:underline
+                      "
                   >
-                    Type :
-                  </Text>
-                </td>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"regular"}
-                    fontSize={"xxs"}
-                  >
-                    Movie
-                  </Text>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"medium"}
-                    fontSize={"xxs"}
-                  >
-                    Country :
-                  </Text>
-                </td>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"regular"}
-                    fontSize={"xxs"}
-                  >
-                    {movieData?.production_countries.map((curr, indx) => {
-                      if (indx != movieData?.production_countries.length - 1) {
-                        return curr?.name + ", ";
-                      } else {
-                        return curr?.name;
-                      }
-                    })}
-                  </Text>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"medium"}
-                    fontSize={"xxs"}
-                  >
-                    Genre :
-                  </Text>
-                </td>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"regular"}
-                    fontSize={"xxs"}
-                  >
-                    {movieData?.genres?.map((curr, indx) => {
-                      if (indx != movieData?.genres.length - 1) {
-                        return curr?.name + ", ";
-                      } else {
-                        return curr?.name;
-                      }
-                    })}
-                  </Text>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"medium"}
-                    fontSize={"xxs"}
-                  >
-                    Release :
-                  </Text>
-                </td>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"regular"}
-                    fontSize={"xxs"}
-                  >
-                    {movieData?.release_date}
-                  </Text>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"medium"}
-                    fontSize={"xxs"}
-                  >
-                    Production Company:
-                  </Text>
-                </td>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"regular"}
-                    fontSize={"xxs"}
-                  >
-                    {movieData?.production_companies.map((curr, indx) => {
-                      if (indx != movieData?.production_companies.length - 1) {
-                        return curr?.name + ", ";
-                      } else {
-                        return curr?.name;
-                      }
-                    })}
-                  </Text>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"medium"}
-                    fontSize={"xxs"}
-                  >
-                    Tag :
-                  </Text>
-                </td>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"regular"}
-                    fontSize={"xxs"}
-                  >
-                    {movieData?.tagline}
-                  </Text>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"medium"}
-                    fontSize={"xxs"}
-                  >
-                    Cast :
-                  </Text>
-                </td>
-                <td>
-                  <Text
-                    fontFamily={"Nunito"}
-                    color={"text.500"}
-                    fontWeight={"regular"}
-                    fontSize={"xxs"}
-                  >
-                    {movieCast?.cast?.slice(0, 6).map((curr, indx: number) => {
-                      if (indx != 5) {
-                        return (
-                          <Link
-                            to={`https://www.google.com/search?q=${curr?.name}`}
-                            target="_blank"
-                          >
-                            {curr?.name + " - " + curr?.character + ", "}
-                          </Link>
-                        );
-                      } else {
-                        return (
-                          <Link
-                            to={`https://www.google.com/search?q=${curr?.name}`}
-                            target="_blank"
-                          >
-                            {curr?.name + " - " + curr?.character}
-                          </Link>
-                        );
-                      }
-                    })}
-                  </Text>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </VStack>
-      </HStack>
-      {/* ReactPlayer  */}
+                    {curr.name} - {curr.character}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* TRAILER */}
       {videoUrl && (
-        <Box w={"70vw"} h={"400px"} mx="auto">
-          <Button
-            fontFamily={"Nunito"}
-            color={"black"}
-            m={"10px 0px"}
-            fontWeight={"semibold"}
-            fontSize={"md"}
-          >
-            Watch Trailer
-          </Button>
+        <div
+          className="
+            w-[70vw]
+            h-[400px]
+            mx-auto
+          "
+        >
+          <Button className="mb-4">Watch Trailer</Button>
+
           <ReactPlayer
             url={videoUrl}
             width="100%"
             height="100%"
-            controls={true}
+            controls
             playing={false}
           />
-        </Box>
+        </div>
       )}
 
-      <Box w={"70vw"} h={"400px"} mx="auto" mt="64px">
-        <Button
-          fontFamily={"Nunito"}
-          color={"black"}
-          m={"10px 0px"}
-          fontWeight={"semibold"}
-          fontSize={"md"}
-        >
-          Watch Movie
-        </Button>
+      {/* MOVIE PLAYER */}
+      <div
+        className="
+          w-[70vw]
+          h-[400px]
+          mx-auto
+          mt-16
+        "
+      >
+        <Button className="mb-4">Watch Movie</Button>
+
         <iframe
-          style={{
-            borderColor: "rgba(0, 0, 0, 0.5)",
-            width: "100%",
-            height: "100%",
-            border: "none",
-          }}
+          className="
+            w-full
+            h-full
+            border-0
+            rounded-md
+          "
           src={`https://multiembed.mov/?video_id=${id}&tmdb=1`}
           allowFullScreen
         />
-      </Box>
+      </div>
 
-      <Box marginTop={"56px"}>
+      {/* SIMILAR MOVIES */}
+      <div className="mt-14">
         <CardList title="Similar Movies" movieData={similarMovies} />
-      </Box>
-    </VStack>
+      </div>
+    </div>
   );
 };
+
 export default SingleMoviePage;
+
+/* -------------------- */
+/* HELPER COMPONENT */
+/* -------------------- */
+
+const InfoRow = ({ label, value }: { label: string; value?: string }) => {
+  return (
+    <div className="flex">
+      <p
+        className="
+          w-[180px]
+          text-gray-400
+          font-medium
+        "
+      >
+        {label} :
+      </p>
+
+      <p className="text-gray-300">{value || "-"}</p>
+    </div>
+  );
+};

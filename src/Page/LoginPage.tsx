@@ -1,68 +1,79 @@
-import {
-  VStack,
-  Heading,
-  Button,
-  Text,
-
-  useToast,
-} from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import { LoginInput, successToast } from "../Component/CustomComponents.tsx";
-//import { yupResolver } from "@hookform/resolvers/yup";
-//import { loginDataInterface, loginSchema } from "../Interface/formSchema.ts";
+// import React from "react";
 import { Link } from "react-router-dom";
-import { useLogin } from "../apis/authApi.ts";
-import { LoginCredentials } from "../Interface/AuthInterfaces.ts";
+import { useForm } from "react-hook-form";
 
+import { toast } from "sonner";
+
+import { LoginInput } from "../Component/CustomComponents";
+
+import { useLogin } from "../apis/authApi";
+
+import { LoginCredentials } from "../Interface/AuthInterfaces";
+import { Button } from "../components/ui/button";
 
 export default function LoginPage() {
-  const toast = useToast();
-  const { mutateAsync:logindata } = useLogin();
+  const { mutateAsync: logindata } = useLogin();
 
-  const {    
+  const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<LoginCredentials>({
-  });
-  // const onSubmit = handleSubmit(data => {
-  const onSubmit = handleSubmit(async(value:LoginCredentials) => {
+  } = useForm<LoginCredentials>();
+
+  const onSubmit = handleSubmit(async (value: LoginCredentials) => {
     try {
       await logindata(value);
-        successToast(toast, "Login", "Successfull");
 
-  }
-  catch (error) {
-    console.log(error);
-    };
-  }
-  );
+      toast.success("Login Successful");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Login Failed");
+    }
+  });
+
   return (
-    <VStack
-      bgColor={"dark.900"}
-      w={"100%"}
-      h={"100vh"}
-      alignItems={"center"}
-      justifyContent={"center"}
+    <div
+      className="
+        flex
+        items-center
+        justify-center
+        w-full
+        h-screen
+        bg-black
+      "
     >
-      <VStack
-        bgColor={"dark.800"}
-        borderRadius={"10px"}
-        w={["90%", "75%", "50%", "35%"]}
-        p={"40px 30px"}
-        alignItems={"flex-start"}
-        as={"form"}
+      {/* FORM CARD */}
+      <form
         onSubmit={onSubmit}
+        className="
+          flex
+          flex-col
+          items-start
+          gap-3
+          w-[90%]
+          sm:w-[75%]
+          md:w-[50%]
+          lg:w-[35%]
+          rounded-xl
+          bg-zinc-900
+          px-8
+          py-10
+        "
       >
-        <Heading
-          fontFamily={"Nunito"}
-          fontSize={"lg"}
-          fontWeight={"medium"}
-          color={"text.300"}
+        {/* HEADING */}
+        <h1
+          className="
+            text-3xl
+            font-medium
+            text-gray-200
+            font-nunito
+          "
         >
           Welcome back!
-        </Heading>
+        </h1>
 
+        {/* EMAIL */}
         <LoginInput
           register={register}
           type="text"
@@ -70,10 +81,17 @@ export default function LoginPage() {
           label="Account"
           placeholder="User email"
         />
-        <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
-          {errors.email == null ? "" : errors.email.message}
-        </Text>
 
+        <p
+          className="
+            text-xs
+            text-red-500
+          "
+        >
+          {errors.email?.message}
+        </p>
+
+        {/* PASSWORD */}
         <LoginInput
           register={register}
           type="password"
@@ -81,44 +99,54 @@ export default function LoginPage() {
           label="Password"
           placeholder="User Password"
         />
-        <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
-          {errors.password == null ? "" : errors.password.message}
-        </Text>
-{/* 
-        <HStack>
-          <Checkbox
-            {...register("saveAuth")}
-            outline={"none"}
-            colorScheme={"whiteAlpha"}
-          />
-          <Text color={"brand.500"} fontWeight={"regular"} fontSize={"xxs"}>
-            Remember me
-          </Text>
-        </HStack> */}
 
+        <p
+          className="
+            text-xs
+            text-red-500
+          "
+        >
+          {errors.password?.message}
+        </p>
+
+        {/* BUTTON */}
         <Button
-          w={"100%"}
           type="submit"
-          bgColor={"brand.400"}
-          color={"dark.700"}
-          _hover={{ bgColor: "brand.500" }}
-          fontSize={"xs"}
-          fontWeight={"semibold"}
+          className="
+            w-full
+            bg-red-500
+            text-black
+            hover:bg-red-600
+            font-semibold
+          "
         >
           Sign In
         </Button>
 
-        <Text color={"brand.500"} fontWeight={"regular"} fontSize={"xxs"}>
+        {/* LINKS */}
+        <p
+          className="
+            text-xs
+            text-red-400
+            cursor-pointer
+            hover:underline
+          "
+        >
           Forget your Password?
-        </Text>
+        </p>
 
-        <Link to={"/sign-up"}>
-          <Text color={"brand.500"} fontWeight={"regular"} fontSize={"xxs"}>
+        <Link to="/sign-up">
+          <p
+            className="
+              text-xs
+              text-red-400
+              hover:underline
+            "
+          >
             Sign up for a new account
-          </Text>
+          </p>
         </Link>
-      </VStack>
-    </VStack>
+      </form>
+    </div>
   );
 }
-  
