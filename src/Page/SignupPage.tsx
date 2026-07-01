@@ -1,128 +1,101 @@
 import { FC } from "react";
-import {
-  VStack,
-  Heading,
-  Button,
-  Text,
-
-} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { LoginInput } from "../Component/CustomComponents.tsx";
 import { Link } from "react-router-dom";
-//import { yupResolver } from "@hookform/resolvers/yup";
-//import { signupDataInterface, signupSchema } from "../Interface/formSchema.ts";
 import { useRegister } from "../apis/authApi.ts";
 import { RegisterCredentials } from "../Interface/AuthInterfaces.ts";
 
 const SignupPage: FC<any> = ({}) => {
-  const { mutateAsync:registerdata } = useRegister();
+  const { mutateAsync: registerdata } = useRegister();
   const {
-    register,handleSubmit,formState: { errors }} = useForm<RegisterCredentials>({
-  });
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterCredentials>({});
 
-  const onSubmit = handleSubmit(async (value:RegisterCredentials) => {
-    console.log(value);
+  const onSubmit = handleSubmit(async (value: RegisterCredentials) => {
     const { repeatPassword, ...payload } = value;
     try {
       await registerdata(payload);
-      console.log(value);
-        }
-        catch (error) {
-          console.log(error);
-          }
-          console.log(value);
-
-          }
-        );
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   return (
-<VStack
-  padding={"10px 0px"}
-  bgColor={"dark.900"}  
-  w={"100%"}
-  minHeight={"100vh"} 
-  h={"100%"}
-  alignItems={"center"}
-  justifyContent={"center"} 
->
-  <VStack
-    bgColor={"dark.800"}
-    borderRadius={"10px"}
-    w={["90%", "70%", "50%", "35%"]} 
-    maxW={"500px"}  
-    p={"40px 30px"}
-    alignItems={"flex-start"}
-    as={"form"}
-    onSubmit={onSubmit}
-  >
-    <Heading
-      fontFamily={"Nunito"}
-      fontSize={"lg"}
-      fontWeight={"medium"}
-      color={"text.300"}
-    >
-      Sign up !
-    </Heading>
-    <LoginInput
-      register={register}
-      type="text"
-      name="name"
-      label="Name"
-      placeholder="User name"
-    />
-    <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
-      {errors.name == null ? "" : errors.name.message}
-    </Text>
-    <LoginInput
-      register={register}
-      type="text"
-      name="email"
-      label="Account"
-      placeholder="User email"
-    />
-    <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
-      {errors.email == null ? "" : errors.email.message}
-    </Text>
-    <LoginInput
-      register={register}
-      type="password"
-      name="password"
-      label="Password"
-      placeholder="User Password"
-    />
-    <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
-      {errors.password == null ? "" : errors.password.message}
-    </Text>
-    <LoginInput
-      register={register}
-      type="password"
-      name="repeatPassword"
-      label="Repeat Password"
-      placeholder="Confirm Password"
-    />
-    <Text fontSize={"xxs"} fontWeight={"regular"} color={"error.500"}>
-      {errors.repeatPassword == null ? "" : errors.repeatPassword.message}
-    </Text>
+    <div className="flex items-center justify-center w-full min-h-screen bg-zinc-950 py-10">
+      <form
+        onSubmit={onSubmit}
+        className="flex flex-col items-start gap-5 w-[90%] sm:w-[70%] md:w-[50%] lg:w-[35%] max-w-[500px] bg-zinc-900 rounded-xl p-10"
+      >
+        <h1 className="text-lg font-medium text-gray-300 font-nunito">
+          Sign up!
+        </h1>
 
-    <Button
-      w={"100%"}
-      type="submit"
-      bgColor={"brand.400"}
-      color={"dark.800"}
-      _hover={{ bgColor: "brand.500" }}
-      fontSize={"xs"}
-      fontWeight={"semibold"}
-    >
-      Sign In
-    </Button>
-    <Link to={"/log-in"}>
-      <Text color={"brand.500"} fontWeight={"regular"} fontSize={"xxs"}>
-        Have an existing account? Sign in{" "}
-      </Text>
-    </Link>
-  </VStack>
-</VStack>
+        <LoginInput
+          register={register}
+          type="text"
+          name="name"
+          label="Name"
+          placeholder="User name"
+        />
+        {errors.name && (
+          <p className="text-[11px] text-red-400 font-nunito -mt-3">
+            {errors.name.message}
+          </p>
+        )}
 
+        <LoginInput
+          register={register}
+          type="text"
+          name="email"
+          label="Account"
+          placeholder="User email"
+        />
+        {errors.email && (
+          <p className="text-[11px] text-red-400 font-nunito -mt-3">
+            {errors.email.message}
+          </p>
+        )}
+
+        <LoginInput
+          register={register}
+          type="password"
+          name="password"
+          label="Password"
+          placeholder="User Password"
+        />
+        {errors.password && (
+          <p className="text-[11px] text-red-400 font-nunito -mt-3">
+            {errors.password.message}
+          </p>
+        )}
+
+        <LoginInput
+          register={register}
+          type="password"
+          name="repeatPassword"
+          label="Repeat Password"
+          placeholder="Confirm Password"
+        />
+        {errors.repeatPassword && (
+          <p className="text-[11px] text-red-400 font-nunito -mt-3">
+            {errors.repeatPassword.message}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          className="w-full bg-red-600 hover:bg-red-500 text-zinc-900 text-xs font-semibold py-2.5 rounded-md transition-colors"
+        >
+          Sign Up
+        </button>
+
+        <Link to="/log-in" className="text-red-500 text-[11px] font-nunito">
+          Have an existing account? Sign in
+        </Link>
+      </form>
+    </div>
   );
 };
 export default SignupPage;

@@ -35,9 +35,7 @@ let LayOut: FC<Props> = ({}) => {
       }}
     >
       <NavBar />
-      <div className="pt-20 lg:pt-24">
-        {" "}
-        {/* Add padding to push content down */}
+      <div className="pt-14 lg:pt-16">
         <Outlet />
       </div>
     </div>

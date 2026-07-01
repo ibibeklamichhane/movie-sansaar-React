@@ -167,7 +167,7 @@ const MoviePage: FC<Props> = () => {
       {/* {searchQuery && <SearchBar onSearch={(query) => setSearchQuery(query)} />} */}
 
       {searchQuery ? (
-        <div className="mt-8">
+        <div className="mt-4">
           {isFetching ? (
             <div className="flex justify-center items-center h-64">
               <div className="text-white">Loading...</div>
@@ -177,7 +177,7 @@ const MoviePage: FC<Props> = () => {
           )}
         </div>
       ) : (
-        <div className="flex flex-col mt-8">
+        <div className="flex flex-col mt-6">
           <div className=" w-full max-w-7xl mx-auto">
             <CardList title="Popular Movies" movieData={popularMovies} />
             <CardList title="Trending Movies" movieData={trendingMovies} />

@@ -37,7 +37,7 @@
 // };
 
 // export default SearchBar;
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { Input } from "../components/ui/input";
 
 interface Props {

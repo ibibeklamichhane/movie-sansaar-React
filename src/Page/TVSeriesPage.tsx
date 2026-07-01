@@ -54,10 +54,9 @@
 
 // export default MoviePage;
 
-import React, { FC, useState } from "react";
+import { FC } from "react";
 
 import CardList from "../Component/CardList";
-import SearchBar from "../Component/SearchBar";
 import HomeBannerCarousel from "./HomeBanner";
 
 import {
@@ -65,18 +64,11 @@ import {
   useTrendingSeries,
   useUpComingSeries,
   useTopRatedSeries,
-  useSearchSeries,
 } from "../apis/SeriesApi";
-
-import { useDebouncedValue } from "../hooks/useDebounce";
 
 interface Props {}
 
-const MoviePage: FC<Props> = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
-
+const TVSeriesPage: FC<Props> = () => {
   const { data: popularseries } = usePopularSeries();
 
   const { data: trendingseries } = useTrendingSeries();
@@ -85,56 +77,31 @@ const MoviePage: FC<Props> = () => {
 
   const { data: topRatedseries } = useTopRatedSeries();
 
-  const { data: searchResults, isFetching } =
-    useSearchSeries(debouncedSearchQuery);
-
   const bannerSeries =
-    trendingseries?.slice(0, 5) || popularseries?.slice(0, 5);
+    trendingseries?.slice(0, 5) || popularseries?.slice(0, 5) || [];
 
   return (
     <>
-      {/* BANNER */}
-      {!searchQuery && bannerSeries && bannerSeries.length > 0 && (
+      {bannerSeries.length > 0 && (
         <div className="relative">
           <HomeBannerCarousel
             movies={bannerSeries}
             type="tv"
             autoPlayDelay={6000}
           />
-          {/* Search bar overlaid at top-right, visually in navbar area */}
-          {/* <div className="absolute top-5 right-[5%] z-40 w-72">
-            <SearchBar onSearch={(query) => setSearchQuery(query)} />
-          </div> */}
         </div>
       )}
 
-      {/* {searchQuery && <SearchBar onSearch={(query) => setSearchQuery(query)} />} */}
-
-      {/* SEARCH RESULTS */}
-      {searchQuery ? (
-        <div className="px-[8vw] mt-6">
-          {isFetching ? (
-            <p className="text-red-500 text-lg">Loading...</p>
-          ) : (
-            <CardList title="Search Results" seriesData={searchResults} />
-          )}
+      <div className="flex flex-col mt-6">
+        <div className="w-full max-w-7xl mx-auto">
+          <CardList title="Popular Series" seriesData={popularseries} />
+          <CardList title="Trending Series" seriesData={trendingseries} />
+          <CardList title="Up Coming Series" seriesData={upComingseries} />
+          <CardList title="Top Rated Series" seriesData={topRatedseries} />
         </div>
-      ) : (
-        /* DEFAULT CONTENT */
-        <div className="flex flex-col mt-8">
-          <div className="w-full max-w-7xl mx-auto">
-            <CardList title="Popular Series" seriesData={popularseries} />
-
-            <CardList title="Trending Series" seriesData={trendingseries} />
-
-            <CardList title="Up Coming Series" seriesData={upComingseries} />
-
-            <CardList title="Top Rated Series" seriesData={topRatedseries} />
-          </div>
-        </div>
-      )}
+      </div>
     </>
   );
 };
 
-export default MoviePage;
+export default TVSeriesPage;

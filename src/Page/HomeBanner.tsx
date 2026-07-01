@@ -16,7 +16,7 @@ import { Button } from "../components/ui/button";
 
 interface Movie {
   id: number;
-  title: string;
+  title?: string;
   name?: string;
   backdrop_path: string;
   overview: string;
