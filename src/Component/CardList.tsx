@@ -4,6 +4,7 @@ import { Card } from "../Component/CustomComponents";
 
 import { Movie, Series } from "../Interface";
 import { Button } from "../components/ui/button";
+import CardListSkeleton from "./CardListSkeleton";
 
 interface Props {
   title: string;
@@ -16,7 +17,7 @@ interface Props {
 
 const CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CardListSkeleton />;
   }
 
   const [limit, setLimit] = useState<number>(10);
@@ -133,7 +134,15 @@ const CardList: FC<Props> = ({ title, movieData, seriesData, isLoading }) => {
     );
   }
 
-  return <div>No Movies/Series Found</div>;
+  if (movieData === undefined && seriesData === undefined) {
+    return <CardListSkeleton />;
+  }
+
+  return (
+    <div className="text-white/50 text-center py-12">
+      No Movies/Series Found
+    </div>
+  );
 };
 
 export default CardList;

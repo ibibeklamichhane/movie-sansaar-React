@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useState, useEffect } from "react";
-import CardList from "../Component/CardList";
+import CardList, { CardListSkeleton } from "../Component/CardList";
 import {
   usePopularMovies,
   useTrendingMovies,
@@ -16,10 +16,10 @@ interface Props {}
 const MoviePage: FC<Props> = () => {
   const [searchQuery, _setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
-  const { data: popularMovies } = usePopularMovies();
-  const { data: trendingMovies } = useTrendingMovies();
-  const { data: upComingMovies } = useUpComingMovies();
-  const { data: topRatedMovies } = useTopRatedMovies();
+  const { data: popularMovies, isLoading: popularLoading } = usePopularMovies();
+  const { data: trendingMovies, isLoading: trendingLoading } = useTrendingMovies();
+  const { data: upComingMovies, isLoading: upcomingLoading } = useUpComingMovies();
+  const { data: topRatedMovies, isLoading: topRatedLoading } = useTopRatedMovies();
   const { data: searchResults, isFetching } =
     useSearchMovies(debouncedSearchQuery);
 
@@ -66,6 +66,8 @@ const MoviePage: FC<Props> = () => {
             <CardList title="Search Results" movieData={searchResults} />
           )}
         </div>
+      ) : popularLoading && trendingLoading && upcomingLoading && topRatedLoading ? (
+        <CardListSkeleton count={10} />
       ) : (
         <div className="flex flex-col mt-6">
           <div className=" w-full max-w-7xl mx-auto">
