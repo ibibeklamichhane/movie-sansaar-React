@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import LoginPage from "./Page/LoginPage";
 import { Routes, Route } from "react-router-dom";
 const SignupPage = lazy(() => import("./Page/SignupPage"));
-//import HomePage from './Page/HomePage';
 import LayOut from "./Layout/Layout";
 import ContactPage from "./Page/ContactPage";
 import MoviePage from "./Page/MoviePage";

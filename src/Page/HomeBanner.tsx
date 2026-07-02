@@ -1,5 +1,4 @@
-// components/HomeBannerCarousel.tsx
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Play, Info } from "lucide-react";
 

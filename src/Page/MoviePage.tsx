@@ -1,115 +1,6 @@
-// import { FC } from "react";
-// import { Box, VStack } from "@chakra-ui/react";
-// import { useState } from "react";
-// import CardList from "../Component/CardList";
-// import SearchBar from "../Component/SearchBar";
-// import {
-//   usePopularMovies,
-//   useTrendingMovies,
-//   useUpComingMovies,
-//   useTopRatedMovies,
-//   useSearchMovies,
-// } from "../apis/MovieApi";
-// import { useDebouncedValue } from "../hooks/useDebounce";
-
-// interface Props {}
-
-// const MoviePage: FC<Props> = () => {
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
-//   const { data: popularMovies } = usePopularMovies();
-//   const { data: trendingMovies } = useTrendingMovies();
-//   const { data: upComingMovies } = useUpComingMovies();
-//   const { data: topRatedMovies } = useTopRatedMovies();
-//   const { data: searchResults, isFetching } =
-//     useSearchMovies(debouncedSearchQuery);
-
-//   return (
-//     <>
-//       <SearchBar onSearch={(query) => setSearchQuery(query)} />
-
-//       {searchQuery ? (
-//         <Box>
-//           {isFetching ? (
-//             <Box>Loading...</Box>
-//           ) : (
-//             <CardList title="Search Results" movieData={searchResults} />
-//           )}
-//         </Box>
-//       ) : (
-//         <VStack m={"0px 8vw"}>
-//           <Box maxW="10xl">
-//             <CardList title="Popular Movies" movieData={popularMovies} />
-//             <CardList title="Trending Movies" movieData={trendingMovies} />
-//             <CardList title="Up Coming Movies" movieData={upComingMovies} />
-//             <CardList title="Top Rated Movies" movieData={topRatedMovies} />
-//           </Box>
-//         </VStack>
-//       )}
-//     </>
-//   );
-// };
-
-// export default MoviePage;
-
-// import { FC } from "react";
-// import { useState } from "react";
-// import CardList from "../Component/CardList";
-// import SearchBar from "../Component/SearchBar";
-// import {
-//   usePopularMovies,
-//   useTrendingMovies,
-//   useUpComingMovies,
-//   useTopRatedMovies,
-//   useSearchMovies,
-// } from "../apis/MovieApi";
-// import { useDebouncedValue } from "../hooks/useDebounce";
-
-// interface Props {}
-
-// const MoviePage: FC<Props> = () => {
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
-//   const { data: popularMovies } = usePopularMovies();
-//   const { data: trendingMovies } = useTrendingMovies();
-//   const { data: upComingMovies } = useUpComingMovies();
-//   const { data: topRatedMovies } = useTopRatedMovies();
-//   const { data: searchResults, isFetching } =
-//     useSearchMovies(debouncedSearchQuery);
-
-//   return (
-//     <>
-//       <SearchBar onSearch={(query) => setSearchQuery(query)} />
-
-//       {searchQuery ? (
-//         <div>
-//           {isFetching ? (
-//             <div>Loading...</div>
-//           ) : (
-//             <CardList title="Search Results" movieData={searchResults} />
-//           )}
-//         </div>
-//       ) : (
-//         <div className="flex flex-col mx-[8vw]">
-//           <div className="max-w-[80rem] mx-auto">
-//             <CardList title="Popular Movies" movieData={popularMovies} />
-//             <CardList title="Trending Movies" movieData={trendingMovies} />
-//             <CardList title="Up Coming Movies" movieData={upComingMovies} />
-//             <CardList title="Top Rated Movies" movieData={topRatedMovies} />
-//           </div>
-//         </div>
-//       )}
-//     </>
-//   );
-// };
-
-// export default MoviePage;
-
-// pages/MoviePage.tsx
 import { FC } from "react";
 import { useState, useEffect } from "react";
 import CardList from "../Component/CardList";
-import SearchBar from "../Component/SearchBar";
 import {
   usePopularMovies,
   useTrendingMovies,
@@ -118,13 +9,12 @@ import {
   useSearchMovies,
 } from "../apis/MovieApi";
 import { useDebouncedValue } from "../hooks/useDebounce";
-import HomeBanner from "./HomeBanner";
 import HomeBannerCarousel from "./HomeBanner";
 
 interface Props {}
 
 const MoviePage: FC<Props> = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, _setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
   const { data: popularMovies } = usePopularMovies();
   const { data: trendingMovies } = useTrendingMovies();
@@ -134,7 +24,7 @@ const MoviePage: FC<Props> = () => {
     useSearchMovies(debouncedSearchQuery);
 
   // Get featured movie for banner (first trending movie)
-  const [featuredMovie, setFeaturedMovie] = useState<any>(null);
+  const [_featuredMovie, setFeaturedMovie] = useState<any>(null);
 
   useEffect(() => {
     if (trendingMovies && trendingMovies.length > 0) {

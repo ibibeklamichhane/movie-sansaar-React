@@ -248,7 +248,7 @@ const SingleMoviePage: React.FC<Props> = () => {
       </div>
 
       {/* SIMILAR MOVIES */}
-      <div className="mt-14">
+      <div className="w-full max-w-7xl mx-auto">
         <CardList title="Similar Movies" movieData={similarMovies} />
       </div>
     </div>
@@ -261,7 +261,13 @@ export default SingleMoviePage;
 /* HELPER COMPONENT */
 /* -------------------- */
 
-const InfoRow = ({ label, value }: { label: string; value?: string }) => {
+const InfoRow = ({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | null | undefined;
+}) => {
   return (
     <div className="flex">
       <p
