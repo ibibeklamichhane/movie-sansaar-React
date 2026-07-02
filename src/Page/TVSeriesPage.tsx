@@ -1,6 +1,7 @@
 import { FC } from "react";
 
-import CardList, { CardListSkeleton } from "../Component/CardList";
+import CardList from "../Component/CardList";
+import CardListSkeleton from "../Component/CardListSkeleton";
 import HomeBannerCarousel from "./HomeBanner";
 
 import {
@@ -15,11 +16,14 @@ interface Props {}
 const TVSeriesPage: FC<Props> = () => {
   const { data: popularseries, isLoading: popularLoading } = usePopularSeries();
 
-  const { data: trendingseries, isLoading: trendingLoading } = useTrendingSeries();
+  const { data: trendingseries, isLoading: trendingLoading } =
+    useTrendingSeries();
 
-  const { data: upComingseries, isLoading: upcomingLoading } = useUpComingSeries();
+  const { data: upComingseries, isLoading: upcomingLoading } =
+    useUpComingSeries();
 
-  const { data: topRatedseries, isLoading: topRatedLoading } = useTopRatedSeries();
+  const { data: topRatedseries, isLoading: topRatedLoading } =
+    useTopRatedSeries();
 
   const bannerSeries =
     trendingseries?.slice(0, 5) || popularseries?.slice(0, 5) || [];
@@ -36,7 +40,10 @@ const TVSeriesPage: FC<Props> = () => {
         </div>
       )}
 
-      {popularLoading && trendingLoading && upcomingLoading && topRatedLoading ? (
+      {popularLoading &&
+      trendingLoading &&
+      upcomingLoading &&
+      topRatedLoading ? (
         <CardListSkeleton count={10} />
       ) : (
         <div className="flex flex-col mt-6">
