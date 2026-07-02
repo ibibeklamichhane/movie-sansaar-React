@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import LoginPage from "./Page/LoginPage";
 import { Routes, Route } from "react-router-dom";
 const SignupPage = lazy(() => import("./Page/SignupPage"));
-//import HomePage from './Page/HomePage';
 import LayOut from "./Layout/Layout";
 import ContactPage from "./Page/ContactPage";
 import MoviePage from "./Page/MoviePage";
@@ -16,11 +15,16 @@ function App() {
       <div className="bg-dark">
         <Routes>
           <Route path="/" element={<LayOut />}>
-            <Route index element={<MoviePage />} />
+            <Route index element={<TVSeriesPage />} />
             <Route path="/movie" element={<MoviePage />} />{" "}
-            <Route path="/watchlist" element={
-              <h1 className ="text-white">Welcome to the user movie list section</h1>
-            } />{" "}
+            <Route
+              path="/watchlist"
+              element={
+                <h1 className="text-white">
+                  Welcome to the user movie list section
+                </h1>
+              }
+            />{" "}
             <Route path="/series" element={<TVSeriesPage />} />{" "}
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/movie/:id" element={<SingleMoviePage />} />
