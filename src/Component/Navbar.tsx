@@ -1,67 +1,142 @@
-import { FC, useState } from "react";
-import { Link } from "react-router-dom";
+import { FC, useState, useEffect } from "react";
+import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { Search } from "lucide-react";
+import SearchBar from "./SearchBar";
+import { useDebouncedValue } from "../hooks/useDebounce";
 
 interface Props {}
 
 const NavBar: FC<Props> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(
+    location.pathname === "/movie" ? searchParams.get("query") || "" : ""
+  );
+  const [isSearchOpen, setIsSearchOpen] = useState(
+    location.pathname === "/movie" && !!searchParams.get("query")
+  );
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, 400);
+
+  // Keep the input in sync when navigating to /movie via other means (e.g. back/forward)
+  useEffect(() => {
+    if (location.pathname === "/movie") {
+      const query = searchParams.get("query") || "";
+      setSearchQuery(query);
+      if (query) setIsSearchOpen(true);
+    } else {
+      setSearchQuery("");
+      setIsSearchOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  // Push the debounced query into the URL so results update as the user types
+  useEffect(() => {
+    const trimmed = debouncedSearchQuery.trim();
+    if (trimmed) {
+      navigate(`/movie?query=${encodeURIComponent(trimmed)}`, { replace: true });
+    } else if (location.pathname === "/movie" && searchParams.get("query")) {
+      navigate("/movie", { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchQuery]);
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Escape") {
+      setSearchQuery("");
+      setIsSearchOpen(false);
+      setIsMenuOpen(false);
+    }
+  };
+
+  const handleSearchBlur = () => {
+    if (!searchQuery.trim()) setIsSearchOpen(false);
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-dark-900/60 backdrop-blur-xl shadow-lg shadow-black/10">
       <div className="flex flex-col items-end p-5 lg:px-[5%] lg:py-4">
-        <div className="w-full flex justify-between items-center">
-          <Link to="/">
-            <h1 className="text-blue-300 text-2xl font-medium">
-              Movie Sansaar
-            </h1>
-          </Link>
-
-          {/* Hamburger Button */}
-          <button
-            className="lg:hidden z-50"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <div className="space-y-2">
-              <span
-                className={`block w-8 h-0.5 bg-blue-500 transition-transform duration-300 ${
-                  isMenuOpen ? "rotate-45 translate-y-2.5" : ""
-                }`}
-              ></span>
-              <span
-                className={`block w-8 h-0.5 bg-blue-500 transition-opacity duration-300 ${
-                  isMenuOpen ? "opacity-0" : ""
-                }`}
-              ></span>
-              <span
-                className={`block w-8 h-0.5 bg-blue-500 transition-transform duration-300 ${
-                  isMenuOpen ? "-rotate-45 -translate-y-2.5" : ""
-                }`}
-              ></span>
-            </div>
-          </button>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8 text-lg">
+        <div className="w-full flex justify-between items-center gap-4">
+          {/* Brand + links grouped on the left */}
+          <div className="flex items-center gap-8">
             <Link to="/">
-              <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
-                Home
-              </span>
+              <h1 className="text-blue-300 text-2xl font-medium whitespace-nowrap">
+                Movie Sansaar
+              </h1>
             </Link>
-            <Link to="/movie">
-              <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
-                Movies
-              </span>
-            </Link>
-            <Link to="/series">
-              <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
-                TV Series
-              </span>
-            </Link>
-            <Link to="/watchlist">
-              <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
-                Watch List
-              </span>
-            </Link>
+
+            <div className="hidden lg:flex items-center gap-8 text-lg">
+              <Link to="/">
+                <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
+                  Home
+                </span>
+              </Link>
+              <Link to="/movie">
+                <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
+                  Movies
+                </span>
+              </Link>
+              <Link to="/series">
+                <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
+                  TV Series
+                </span>
+              </Link>
+              <Link to="/watchlist">
+                <span className="font-nunito text-blue-300 hover:text-blue-400 transition-colors">
+                  Watch List
+                </span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Search + hamburger grouped on the right */}
+          <div className="flex items-center gap-2">
+            {isSearchOpen ? (
+              <SearchBar
+                value={searchQuery}
+                onChange={setSearchQuery}
+                onKeyDown={handleSearchKeyDown}
+                onBlur={handleSearchBlur}
+                placeholder="Search movies, series..."
+                autoFocus
+                className="w-52 sm:w-72 lg:w-96 transition-all duration-300 ease-out"
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(true)}
+                aria-label="Open search"
+                className="p-2 rounded-full text-blue-300 hover:bg-white/10 hover:text-blue-400 transition-colors"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+            )}
+
+            {/* Hamburger Button */}
+            <button
+              className="lg:hidden z-50"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <div className="space-y-2">
+                <span
+                  className={`block w-8 h-0.5 bg-blue-500 transition-transform duration-300 ${
+                    isMenuOpen ? "rotate-45 translate-y-2.5" : ""
+                  }`}
+                ></span>
+                <span
+                  className={`block w-8 h-0.5 bg-blue-500 transition-opacity duration-300 ${
+                    isMenuOpen ? "opacity-0" : ""
+                  }`}
+                ></span>
+                <span
+                  className={`block w-8 h-0.5 bg-blue-500 transition-transform duration-300 ${
+                    isMenuOpen ? "-rotate-45 -translate-y-2.5" : ""
+                  }`}
+                ></span>
+              </div>
+            </button>
           </div>
         </div>
 

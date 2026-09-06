@@ -27,3 +27,5 @@ dist-ssr
 
 # Ignore TypeScript build info files
 *.tsbuildinfo
+
+FRONTEND.md
