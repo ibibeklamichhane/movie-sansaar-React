@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import CardList from "../Component/CardList";
 import {
   usePopularMovies,
@@ -8,15 +9,14 @@ import {
   useTopRatedMovies,
   useSearchMovies,
 } from "../apis/MovieApi";
-import { useDebouncedValue } from "../hooks/useDebounce";
 import HomeBannerCarousel from "./HomeBanner";
 import CardListSkeleton from "../Component/CardListSkeleton";
 
 interface Props {}
 
 const MoviePage: FC<Props> = () => {
-  const [searchQuery, _setSearchQuery] = useState("");
-  const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("query") || "";
   const { data: popularMovies, isLoading: popularLoading } = usePopularMovies();
   const { data: trendingMovies, isLoading: trendingLoading } =
     useTrendingMovies();
@@ -24,8 +24,7 @@ const MoviePage: FC<Props> = () => {
     useUpComingMovies();
   const { data: topRatedMovies, isLoading: topRatedLoading } =
     useTopRatedMovies();
-  const { data: searchResults, isFetching } =
-    useSearchMovies(debouncedSearchQuery);
+  const { data: searchResults, isFetching } = useSearchMovies(searchQuery);
 
   // Get featured movie for banner (first trending movie)
   const [_featuredMovie, setFeaturedMovie] = useState<any>(null);
@@ -51,14 +50,8 @@ const MoviePage: FC<Props> = () => {
             type="movie"
             autoPlayDelay={6000}
           />
-          {/* Search bar overlaid at top-right, visually in navbar area */}
-          {/* <div className="absolute top-5 right-[5%] z-40 w-72">
-            <SearchBar onSearch={(query) => setSearchQuery(query)} />
-          </div> */}
         </div>
       )}
-
-      {/* {searchQuery && <SearchBar onSearch={(query) => setSearchQuery(query)} />} */}
 
       {searchQuery ? (
         <div className="mt-4">
